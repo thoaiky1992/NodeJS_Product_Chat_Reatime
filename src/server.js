@@ -1,5 +1,10 @@
 // const express   = require('express');
-import express from "express";
+import express from 'express';
+import connectDB from './config/connectDB';
+
+//connect to MongoDB
+connectDB();
+
 const app       = express();
 const hostname  = "localhost";
 const port      = 4000;
