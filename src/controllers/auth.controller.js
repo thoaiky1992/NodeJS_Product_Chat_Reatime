@@ -1,6 +1,10 @@
-import {validationResult} from 'express-validator/check'
+import {validationResult} from 'express-validator/check';
+import {auth} from '../services/index';
 let loginRegister = (req,res) => {
-    res.render('auth/master') ;
+    res.render('auth/master',{
+        errors :req.flash('errors'),
+        success:req.flash('success')
+    }) ;
 }
 let logout = (req,res) => {
     //do something
@@ -13,12 +17,10 @@ let postRegister = (req,res) => {
         errors.forEach(item => {
             errorArr.push(item.msg);
         })
-        console.log(errorArr);
+        req.flash('errors',errorArr);
+        return res.redirect('/login-register')
     }
-    else{
-        console.log(req.body);
-    }
-    // console.log(req.body);
+    auth.register(req.body.email,req.body.gender,req.body.password );
 }
 module.exports = {
     loginRegister,
