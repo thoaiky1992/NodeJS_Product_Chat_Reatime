@@ -8,7 +8,7 @@ let initRoutes = (app) => {
     router.get('/',HomeController);
     router.get('/login-register',AuthController.loginRegister);
     router.post('/register', authValid.register ,AuthController.postRegister);
-
+    router.get('/verify/:token',AuthController.verifyAccount)
     return app.use('/',router);
 }
 module.exports = initRoutes;

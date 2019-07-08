@@ -11,7 +11,7 @@ let connectDB = () => {
     let DB_PASSWORD     = '';
     //mongodb://localhost:27017/awesome_chat
     let URI = `${DB_CONNECTION}://${DB_HOST}:${DB_PORT}/${DB_NAME}`;
-    return mongoose.connect(URI,{ useNewUrlParser: true });
+    return mongoose.connect(URI,{ useNewUrlParser: true ,useFindAndModify: false});
 };
 module.exports = connectDB;
 
