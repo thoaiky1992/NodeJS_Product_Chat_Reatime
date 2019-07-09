@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 const Schema = mongoose.Schema;
 
 const UserSchema  = new Schema({
@@ -28,12 +29,15 @@ const UserSchema  = new Schema({
     updateAt : {type:Number,default:null},
     deleteAt : {type:Number,default:null},
 });
-UserSchema.statics = {
+UserSchema.statics = { // UserSchema.statics : để tìm bản ghi và truy vấn
     createNew(item){
         return this.create(item)
     },
     findByEmail(email){
         return this.findOne({"local.email":email}).exec();
+    },
+    findUserById(id){
+        return this.findById(id).exec();
     },
     removeById(id){
         return this.findByIdAndRemove(id).exec();
@@ -46,6 +50,11 @@ UserSchema.statics = {
             {"local.verifyToken":token},
             {"local.isActive" : true,"local.verifyToken":null}
         ).exec();
+    }
+}
+UserSchema.methods = { // UserSchema.methods: đã tìm được bản ghi và truy vấn trong bản ghi đó
+    comparePassword(password){
+        return bcrypt.compare(password,this.local.password); // return a Promise has result is true or false
     }
 }
 module.exports = mongoose.model("user",UserSchema);

@@ -6,6 +6,7 @@ import initRoutes from './routes/web';
 import bodyParser from 'body-parser';
 import connectFlash from 'connect-flash';
 import configSession from './config/session';
+import passport from 'passport';
 const app       = express();
 const hostname  = "localhost";
 const port      = 3000;
@@ -24,6 +25,10 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 // enable connect flash massage
 app.use(connectFlash());
+
+// config passport js
+app.use(passport.initialize());
+app.use(passport.session());
 
 // init all routes
 initRoutes(app);
