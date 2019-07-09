@@ -7,7 +7,7 @@ import initPassportLocal from '../controllers/passportController/local';
 //init all passport
 let router = express.Router();
 initPassportLocal();
-
+// all routes
 let initRoutes = (app) => {
     router.get('/',HomeController);
     router.get('/login-register',AuthController.loginRegister);
