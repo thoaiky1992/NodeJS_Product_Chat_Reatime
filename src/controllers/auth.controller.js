@@ -53,13 +53,13 @@ let getLogout = (req,res) => {
     return res.redirect('/login-register')
 }
 let checkLoggedIn = (req,res,next) => {
-    if(!req.isAuthenticated){
+    if(!req.isAuthenticated()){
         return res.redirect('/login-register');
     }
     next();
 }
 let checkLoggedOut = (req,res,next) => {
-    if(req.isAuthenticated){
+    if(req.isAuthenticated()){
         return res.redirect('/');
     }
     next();

@@ -50,7 +50,10 @@ UserSchema.statics = { // UserSchema.statics : để tìm bản ghi và truy v�
             {"local.verifyToken":token},
             {"local.isActive" : true,"local.verifyToken":null}
         ).exec();
-    }
+    },
+    findByFacebookUid(uid){
+        return this.findOne({"facebook.uid":uid}).exec();
+    },
 }
 UserSchema.methods = { // UserSchema.methods: đã tìm được bản ghi và truy vấn trong bản ghi đó
     comparePassword(password){

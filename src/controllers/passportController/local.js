@@ -7,7 +7,7 @@ let localStrategy = passportLocal.Strategy;
 let initPassportLocal = () => {
 	passport.use(new localStrategy({
 		usernameField : "email",
-		passwordFiel  : "password",
+		passwordField : "password",
 		passReqToCallback : true // truyền request sang hàm callback kế bế bên
 	} , async (req,email,password,done) => {
 		try {
