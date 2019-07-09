@@ -54,6 +54,9 @@ UserSchema.statics = { // UserSchema.statics : để tìm bản ghi và truy v�
     findByFacebookUid(uid){
         return this.findOne({"facebook.uid":uid}).exec();
     },
+    findByGoogleUid(uid){
+        return this.findOne({"google.uid":uid}).exec();
+    },
 }
 UserSchema.methods = { // UserSchema.methods: đã tìm được bản ghi và truy vấn trong bản ghi đó
     comparePassword(password){
