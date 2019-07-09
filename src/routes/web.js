@@ -9,16 +9,18 @@ let router = express.Router();
 initPassportLocal();
 // all routes
 let initRoutes = (app) => {
-    router.get('/',HomeController);
-    router.get('/login-register',AuthController.loginRegister);
-    router.post('/register', authValid.register ,AuthController.postRegister);
-    router.get('/verify/:token',AuthController.verifyAccount)
-    router.post('/login',passport.authenticate('local',{
+    router.get('/', AuthController.checkLoggedIn ,HomeController);
+
+    router.get('/login-register', AuthController.checkLoggedOut,AuthController.loginRegister);
+    router.post('/register', AuthController.checkLoggedOut,authValid.register ,AuthController.postRegister);
+    router.get('/verify/:token',AuthController.checkLoggedOut,AuthController.verifyAccount)
+    router.post('/login',AuthController.checkLoggedOut,passport.authenticate('local',{
         successRedirect : '/',
         failureRedirect : '/login-register',
         successFlash    : true,
         failureFlash    :  true
     }))
+    router.get('/logout', AuthController.checkLoggedIn, AuthController.getLogout);
     return app.use('/',router);
 }
 module.exports = initRoutes;
