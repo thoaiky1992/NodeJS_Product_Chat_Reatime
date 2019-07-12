@@ -2,6 +2,12 @@ $(function(){
     let userAvatar = null;
     let userInfo = {};
     let originAvatarSrc = $('#user-modal-avatar').attr('src');
+    let originUserInfo = {
+        username : $('#input-change-username').val(),
+        gender : ($('#input-change-gender-male').is(":checked") ? $('#input-change-gender-male').val() : $('#input-change-gender-female').val()),
+        address : $('#input-change-address').val(),
+        phone : $('#input-change-phone').val(),
+    };
     function updateUserInfo(){
         $('#input-change-avatar').bind('change',function(){
             let fileData = $(this).prop('files')[0];
@@ -82,5 +88,9 @@ $(function(){
         cuserAvatar = null;
         userInfo = {};
         $('#user-modal-avatar').attr('src',originAvatarSrc);
+        $('#input-change-username').val(originUserInfo.username);
+        (originUserInfo.gender === 'male') ? $('#input-change-gender-male').click() : $('#input-change-gender-female').click();
+        $('#input-change-address').val(originUserInfo.address);
+        $('#input-change-phone').val(originUserInfo.phone);
     });
 });
