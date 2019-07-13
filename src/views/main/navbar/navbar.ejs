@@ -51,7 +51,7 @@
                                     </span><br><br><br>
 
                                     <span data-uid="${ user.id }">
-                                        <img class="avatar-small" src="images/users/<%= user.avatar %>"
+                                        <img class="avatar-small navbar_avatar" src="images/users/<%= user.avatar %>"
                                             alt="">
                                         <strong>Trung Quân</strong> đã gửi cho bạn một lời mời kết bạn!
                                     </span><br><br><br>
@@ -63,7 +63,7 @@
                 </li>
                 <li class="dropdown" id="dropdown-navbar-user" data-uid="user._id">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <img class="avatar-small" src="images/users/<%= user.avatar %>" alt="">
+                        <img id="navbar-avatar" class="avatar-small" src="images/users/<%= user.avatar %>" alt="">
                         <%= user.username %>
                         <span class="caret"></span>
                     </a>

@@ -67,12 +67,12 @@ $(function(){
             alertify.notify('Bạn phải thay đổi thông tin trước khi cập nhật dữ liệu !!!','error',7);
             return false;
         }
-        if( userAvatar){
+        if(userAvatar){
             CallUpdateUserAvatar();
         }
-        if($.isEmptyObject(userInfo)){
-            CallUpdateUserInfo();
-        }
+        // if($.isEmptyObject(userInfo)){
+        //     CallUpdateUserInfo();
+        // }
         // console.log(userAvatar);
         // console.log(userInfo);
     });
@@ -94,11 +94,19 @@ $(function(){
             processData : false,
             data : userAvatar,
             success:function(result){
-                console.log(result)
+                console.log(result);
+                $('.user-modal-alert-success').find("span").text(result.message);
+                $('.user-modal-alert-success').fadeIn();
+                $('#navbar-avatar').attr('src',result.imageSrc);
+                originAvatarSrc = result.imageSrc;
+                $('#input-btn-cancel-user').click();
+                $('#input-change-avatar').val(null);
             },
             error:function(error){
                 console.log(error);
                 $('.user-modal-alert-error').find("span").text(error.responseText);
+                $('.user-modal-alert-error').fadeIn();
+                $('#input-btn-cancel-user').click();
             }
         });
     }

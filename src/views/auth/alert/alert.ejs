@@ -2,11 +2,21 @@
     <script>openLoginModal()</script>
     <% errors.forEach(item => { %>
         <div class="alert alert-danger"><%- item %></div>
+        <script>
+            setInterval(function(){
+                $('.alert-danger').slideUp();
+            },5000);
+        </script>
     <% })%>
 <% } %>
 <% if(success != "") { %>
     <script>openLoginModal()</script>
     <% success.forEach(item => { %>
         <div class="alert alert-success"><%- item %></div>
+        <script>
+            setInterval(function(){
+                $('.alert-success').slideUp();
+            },5000);
+        </script>
     <% })%>
 <% } %>

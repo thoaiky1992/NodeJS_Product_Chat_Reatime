@@ -12,6 +12,7 @@ export const transErrors = {
     login_failed : ' Sai tài khoản hoặc mật khẩu',
     server_error : 'Có lỗi ở phía server trong quá trình đăng nhập ! xin vui lòng liên hệ với bộ phận hỗ trợ của chúng tôi để xử lý , xin cảm ơn',
     avatar_type : 'Kiểu file không hợp lệ ! chỉ chấp nhận JPG - JNG - JPEG',
+    avatar_size : 'File không được vượt quá 1MB .'
 }
 export const transSuccess = {
     userCreated : (userEmail) => {
@@ -21,7 +22,8 @@ export const transSuccess = {
     loginSuccess : (username) => {
         return `Xin chào ${username} , chúc bạn có 1 ngày thật vui vẽ và tốt lành ...`;
     },
-    logout_success : 'Đăng xuất tài khoản thành cmn công nhé '
+    logout_success : 'Đăng xuất tài khoản thành cmn công nhé ',
+    avatar_updated : 'Cập nhật ảnh đại diện thành công .'
     
 }
 export const transMail = {
