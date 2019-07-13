@@ -10,7 +10,8 @@ export const transErrors = {
     account_removed : 'Tài khoản này đã bị xoá khỏi hệ thống',
     token_undefined : 'Token không tồn tại !!!',
     login_failed : ' Sai tài khoản hoặc mật khẩu',
-    server_error : 'Có lỗi ở phía server trong quá trình đăng nhập ! xin vui lòng liên hệ với bộ phận hỗ trợ của chúng tôi để xử lý , xin cảm ơn'
+    server_error : 'Có lỗi ở phía server trong quá trình đăng nhập ! xin vui lòng liên hệ với bộ phận hỗ trợ của chúng tôi để xử lý , xin cảm ơn',
+    avatar_type : 'Kiểu file không hợp lệ ! chỉ chấp nhận JPG - JNG - JPEG',
 }
 export const transSuccess = {
     userCreated : (userEmail) => {

@@ -13,16 +13,16 @@ $(function(){
             let fileData = $(this).prop('files')[0];
             let math = ['image/png','image/jpg','image/jpeg'];
             let limit = 1048576; // byte = 1MB
-            if($.inArray(fileData.type,math) === -1){
-                alertify.notify('Kiểu file không hợp lệ ! chỉ chấp nhận JPG - JNG - JPEG','error',7);
-                $(this).val(null);
-                return false;
-            }
-            if(fileData.size > limit){
-                alertify.notify('Ảnh upload chỉ cho phép dưới 1MB','error',7);
-                $(this).val(null);
-                return false;
-            }
+            // if($.inArray(fileData.type,math) === -1){
+            //     alertify.notify('Kiểu file không hợp lệ ! chỉ chấp nhận JPG - JNG - JPEG','error',7);
+            //     $(this).val(null);
+            //     return false;
+            // }
+            // if(fileData.size > limit){
+            //     alertify.notify('Ảnh upload chỉ cho phép dưới 1MB','error',7);
+            //     $(this).val(null);
+            //     return false;
+            // }
             if(typeof (FileReader) != "undefined"){
                 let imagePreview = $('#image-edit-profile');
                 imagePreview.empty();
@@ -67,20 +67,12 @@ $(function(){
             alertify.notify('Bạn phải thay đổi thông tin trước khi cập nhật dữ liệu !!!','error',7);
             return false;
         }
-        $.ajax({
-            url : '/user/update-avatar',
-            type : 'put',
-            cache : false,
-            contentType : false,
-            processData : false,
-            data : userAvatar,
-            success:function(result){
-                //
-            },
-            error:function(error){
-                //
-            }
-        });
+        if( userAvatar){
+            CallUpdateUserAvatar();
+        }
+        if($.isEmptyObject(userInfo)){
+            CallUpdateUserInfo();
+        }
         // console.log(userAvatar);
         // console.log(userInfo);
     });
@@ -93,4 +85,34 @@ $(function(){
         $('#input-change-address').val(originUserInfo.address);
         $('#input-change-phone').val(originUserInfo.phone);
     });
+    function CallUpdateUserAvatar(){
+        $.ajax({
+            url : '/user/update-avatar',
+            type : 'put',
+            cache : false,
+            contentType : false,
+            processData : false,
+            data : userAvatar,
+            success:function(result){
+                console.log(result)
+            },
+            error:function(error){
+                console.log(error);
+                $('.user-modal-alert-error').find("span").text(error.responseText);
+            }
+        });
+    }
+    function CallUpdateUserInfo(){
+        $.ajax({
+            url : '/user/update-info',
+            type : 'put',
+            data : userInfo,
+            success:function(result){
+                //
+            },
+            error:function(error){
+                //
+            }
+        });
+    }
 });

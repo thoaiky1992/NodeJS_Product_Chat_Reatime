@@ -1,6 +1,7 @@
 import express from 'express';
 import AuthController from '../controllers/auth.controller';
 import HomeController from '../controllers/home.controller';
+import UserController from '../controllers/userController';
 import {authValid}    from '../validation/index';
 import passport from 'passport';
 import initPassportLocal from '../controllers/passportController/local';
@@ -36,7 +37,7 @@ let initRoutes = (app) => {
         successRedirect : '/',
         failureRedirect : '/login-register'
     }));
-
+    router.put('/user/update-avatar',AuthController.checkLoggedIn,UserController.updateAvatar);
     return app.use('/',router);
 }
 module.exports = initRoutes;
