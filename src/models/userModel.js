@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const UserSchema  = new Schema({
     username    : String,
     gender      : {type: String , default : 'male'},
-    phone       : {type: Number , default : null},
+    phone       : {type: String , default : null},
     address     : {type: String , default : null},
     avatar      : {type: String , default : 'avatar-default.jpg'},
     role        : {type: String , default : 'user'},
@@ -25,9 +25,9 @@ const UserSchema  = new Schema({
         token   : String,
         email   : {type:String,trim : true}
     },
-    createAt : {type:Number,default:Date.now},
-    updateAt : {type:Number,default:null},
-    deleteAt : {type:Number,default:null},
+    createAt : {type:String,default:Date.now},
+    updateAt : {type:String,default:null},
+    deleteAt : {type:String,default:null},
 });
 UserSchema.statics = { // UserSchema.statics : để tìm bản ghi và truy vấn
     createNew(item){

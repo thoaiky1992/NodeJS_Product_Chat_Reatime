@@ -49,23 +49,61 @@ $(function(){
         });
     }
     updateUserInfo();
-    $('#input-change-username').bind('change',function(){
+    $('#input-change-username').bind('keyup',function(){
+        username = $(this).val();
+        let regexUsername = new RegExp("^[\s0-9a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$");
+        if(!regexUsername.test(username) || username.length < 3 || username.length > 17){
+            alertify.notify('Username chỉ chứa khoảng 3-17 kí tự và méo được phép chứa kí tự đặc biệt','error',7),
+            $(this).val(originUserInfo.username);
+            delete userInfo.username;
+            return false;
+        }
         userInfo.username = $(this).val();
         changeInfo = true;
     });
     $('#input-change-gender-male').bind('click',function(){
-        userInfo.gender = $(this).val();
+        gender = $(this).val()
+        if(gender !== 'male'){
+            alertify.notify('Oh my god ! giới tính có vấn đề ...','error',7),
+            $(this).val(originUserInfo.gender);
+            delete userInfo.gender;
+            return false;
+        }
+        userInfo.gender = gender;
         changeInfo = true;
     });
     $('#input-change-gender-female').bind('click',function(){
+        gender = $(this).val();
+        if(gender !== 'female'){
+            alertify.notify('Oh my god ! giới tính có vấn đề ...','error',7),
+            $(this).val(originUserInfo.gender);
+            delete userInfo.gender;
+            return false;
+        }
         userInfo.gender = $(this).val();
         changeInfo = true;
     });
-    $('#input-change-address').bind('change',function(){
+    $('#input-change-address').bind('keyup',function(){
+        address = $(this).val();
+        if( address.length < 3 || address.length > 80){
+            alertify.notify('Địa chỉ giới hạn trong 3-30 kí tự','error',7),
+            $(this).val(originUserInfo.address);
+            delete userInfo.address;
+            return false;
+        }
         userInfo.address = $(this).val();
         changeInfo = true;
     });
     $('#input-change-phone').bind('change',function(){
+        phone = $(this).val();
+        let regexPhone = new RegExp("^(0)[0-9]{9,10}$");
+        if(!regexPhone.test(phone)){
+            alertify.notify('Số điện thoại phải bắt đầu bằng số 0 và giới hạn 10-11 kí tự số','error',7),
+            $(this).val(originUserInfo.phone);
+            delete userInfo.phone;
+            changeInfo = true;
+            return false;
+        }
         userInfo.phone = $(this).val();
         changeInfo = true;
     });

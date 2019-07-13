@@ -3,6 +3,10 @@ export const transValidation = {
     gender_incorrect : 'Ủa ! tại sao trường giới tính lại bị sai',
     password_incorrect : 'Mật khẩu chứa ít nhất 8 kí tự , bao gồm chữ hoa , chữ thường và ký tự đặc biệt',
     password_confirmation_incorrect : 'Nhập lại mật khẩu chưa chính xác',
+    update_username : 'Username chỉ chứa khoảng 3-17 kí tự và méo được phép chứa kí tự đặc biệt',
+    update_gender : 'Oh my god ! giới tính có vấn đề ... ',
+    update_address : 'Địa chỉ giới hạn trong 3-80 kí tự',
+    update_phone : 'Số điện thoại phải bắt đầu bằng số 0 và giới hạn 10-11 kí tự số'
 };
 export const transErrors = {
     account_in_use : 'Email này đã được sử dụng !!!',

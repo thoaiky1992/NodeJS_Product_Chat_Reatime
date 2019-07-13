@@ -2,7 +2,7 @@ import express from 'express';
 import AuthController from '../controllers/auth.controller';
 import HomeController from '../controllers/home.controller';
 import UserController from '../controllers/userController';
-import {authValid}    from '../validation/index';
+import {authValid,userValid}    from '../validation/index';
 import passport from 'passport';
 import initPassportLocal from '../controllers/passportController/local';
 import initPassportFacebook from '../controllers/passportController/facebook';
@@ -38,7 +38,7 @@ let initRoutes = (app) => {
         failureRedirect : '/login-register'
     }));
     router.put('/user/update-avatar',AuthController.checkLoggedIn,UserController.updateAvatar);
-    router.put('/user/update-info',AuthController.checkLoggedIn,UserController.updateInfo);
+    router.put('/user/update-info',AuthController.checkLoggedIn,userValid.updateInfo ,UserController.updateInfo);
     return app.use('/',router);
 }
 module.exports = initRoutes;

@@ -1,5 +1,7 @@
 import multer from 'multer';
+import {validationResult} from 'express-validator/check';
 import { app } from '../config/app';
+import dateTimeCurrent from '../../lang/dateTimeCurrent';
 import { transErrors , transSuccess} from '../../lang/vi';
 import uuidv4 from 'uuid/v4';
 import {user} from '../services/index';
@@ -34,7 +36,7 @@ let updateAvatar = (req,res) => {
         try {
             let updateUserItem = {
                 avatar : req.file.filename,
-                updateAt : Date.now()
+                updateAt : dateTimeCurrent("Asia/Ho_Chi_Minh")
             }
             // update User
             let userUpdate = await user.updateUser(req.user._id,updateUserItem);
@@ -53,6 +55,15 @@ let updateAvatar = (req,res) => {
 }
 // update info
 let updateInfo = async (req,res) => {
+    let errorArr   = [];
+    const errorValidation = validationResult(req);
+    if(!errorValidation.isEmpty()){
+        let errors = Object.values(errorValidation.mapped()); // Object.values lấy tất cả các value bỏ vào mảng 
+        errors.forEach(item => {
+            errorArr.push(item.msg);
+        })
+        return res.status(500).send(errorArr);
+    }
     try {
         let updateUserItem = req.body;
         await user.updateUser(req.user._id,updateUserItem);
