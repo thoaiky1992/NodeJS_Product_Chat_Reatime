@@ -23,7 +23,7 @@ export const transSuccess = {
         return `Xin chào ${username} , chúc bạn có 1 ngày thật vui vẽ và tốt lành ...`;
     },
     logout_success : 'Đăng xuất tài khoản thành cmn công nhé ',
-    avatar_updated : 'Cập nhật ảnh đại diện thành công .'
+    user_info_or_avatar_updated : 'Cập nhập thông tin thành cmn công .'
     
 }
 export const transMail = {

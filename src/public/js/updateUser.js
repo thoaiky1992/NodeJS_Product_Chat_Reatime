@@ -1,4 +1,5 @@
 $(function(){
+    var changeInfo = false;
     let userAvatar = null;
     let userInfo = {};
     let originAvatarSrc = $('#user-modal-avatar').attr('src');
@@ -10,6 +11,7 @@ $(function(){
     };
     function updateUserInfo(){
         $('#input-change-avatar').bind('change',function(){
+            changeInfo = true;
             let fileData = $(this).prop('files')[0];
             let math = ['image/png','image/jpg','image/jpeg'];
             let limit = 1048576; // byte = 1MB
@@ -49,41 +51,46 @@ $(function(){
     updateUserInfo();
     $('#input-change-username').bind('change',function(){
         userInfo.username = $(this).val();
+        changeInfo = true;
     });
     $('#input-change-gender-male').bind('click',function(){
         userInfo.gender = $(this).val();
+        changeInfo = true;
     });
     $('#input-change-gender-female').bind('click',function(){
         userInfo.gender = $(this).val();
+        changeInfo = true;
     });
     $('#input-change-address').bind('change',function(){
         userInfo.address = $(this).val();
+        changeInfo = true;
     });
     $('#input-change-phone').bind('change',function(){
         userInfo.phone = $(this).val();
+        changeInfo = true;
     });
     $('#input-btn-update-user').bind('click',function(){
-        if($.isEmptyObject(userInfo) && !userAvatar){
+        if(($.isEmptyObject(userInfo) && !userAvatar) || changeInfo === false){
             alertify.notify('Bạn phải thay đổi thông tin trước khi cập nhật dữ liệu !!!','error',7);
             return false;
         }
         if(userAvatar){
             CallUpdateUserAvatar();
         }
-        // if($.isEmptyObject(userInfo)){
-        //     CallUpdateUserInfo();
-        // }
-        // console.log(userAvatar);
-        // console.log(userInfo);
+        if(!$.isEmptyObject(userInfo)){
+            CallUpdateUserInfo();
+        }
     });
     $('#input-btn-cancel-user').bind('click',function(){
         cuserAvatar = null;
         userInfo = {};
+        $('#input-change-avatar').val(null);
         $('#user-modal-avatar').attr('src',originAvatarSrc);
         $('#input-change-username').val(originUserInfo.username);
         (originUserInfo.gender === 'male') ? $('#input-change-gender-male').click() : $('#input-change-gender-female').click();
         $('#input-change-address').val(originUserInfo.address);
         $('#input-change-phone').val(originUserInfo.phone);
+        changeInfo =  false;
     });
     function CallUpdateUserAvatar(){
         $.ajax({
@@ -94,32 +101,51 @@ $(function(){
             processData : false,
             data : userAvatar,
             success:function(result){
-                console.log(result);
                 $('.user-modal-alert-success').find("span").text(result.message);
-                $('.user-modal-alert-success').fadeIn();
+                $('.user-modal-alert-success').css({'display':'block'});
+                setTimeout(function(){
+                    $('.user-modal-alert-success').slideUp();
+                },5000);
                 $('#navbar-avatar').attr('src',result.imageSrc);
                 originAvatarSrc = result.imageSrc;
                 $('#input-btn-cancel-user').click();
                 $('#input-change-avatar').val(null);
+                changeInfo =  false;
             },
             error:function(error){
-                console.log(error);
                 $('.user-modal-alert-error').find("span").text(error.responseText);
-                $('.user-modal-alert-error').fadeIn();
+                $('.user-modal-alert-error').css({'display':'block'});
+                setTimeout(function(){
+                    $('.user-modal-alert-error').slideUp();
+                },5000);
                 $('#input-btn-cancel-user').click();
+                changeInfo = false;
             }
         });
     }
     function CallUpdateUserInfo(){
+        console.log(userInfo)
         $.ajax({
             url : '/user/update-info',
             type : 'put',
             data : userInfo,
             success:function(result){
-                //
+                $('.user-modal-alert-success').find("span").text(result.message);
+                $('.user-modal-alert-success').css({'display':'block'});
+                setTimeout(function(){
+                    $('.user-modal-alert-success').slideUp();
+                },5000);
+                originUserInfo = Object.assign(originUserInfo,userInfo);
+                $('#navbar-username').text(originUserInfo.username);
+                $('#input-btn-cancel-user').click();
             },
             error:function(error){
-                //
+                $('.user-modal-alert-error').find("span").text(error.responseText);
+                $('.user-modal-alert-error').css({'display':'block'});
+                setTimeout(function(){
+                    $('.user-modal-alert-error').slideUp();
+                },5000);
+                $('#input-btn-cancel-user').click();
             }
         });
     }

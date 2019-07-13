@@ -21,6 +21,7 @@ let avatarUploadFile = multer({
     storage : StorageAvatar,
     limits : {fileSize : app.avatar_limit_size}
 }).single("avatar");
+// update avatar
 let updateAvatar = (req,res) => {
     avatarUploadFile(req,res, async (error) => {
         if(error){
@@ -37,11 +38,10 @@ let updateAvatar = (req,res) => {
             }
             // update User
             let userUpdate = await user.updateUser(req.user._id,updateUserItem);
-            // remove old user avatar
-            console.log(userUpdate)
+            // xoá avatar cũ
             await fsExtra.remove(`${app.avatar_directory}/${userUpdate.avatar}`);
             let result = {
-                message : transSuccess.avatar_updated,
+                message : transSuccess.user_info_or_avatar_updated,
                 imageSrc : `/images/users/${req.file.filename}`
             }
             return res.status(200).send(result)
@@ -51,6 +51,21 @@ let updateAvatar = (req,res) => {
         }
     });
 }
+// update info
+let updateInfo = async (req,res) => {
+    try {
+        let updateUserItem = req.body;
+        await user.updateUser(req.user._id,updateUserItem);
+        let result = {
+            message : transSuccess.user_info_or_avatar_updated
+        }
+        return res.status(200).send(result)
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+    }
+}
 module.exports = {
-    updateAvatar
+    updateAvatar,
+    updateInfo
 }

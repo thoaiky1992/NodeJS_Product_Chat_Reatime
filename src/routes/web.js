@@ -38,6 +38,7 @@ let initRoutes = (app) => {
         failureRedirect : '/login-register'
     }));
     router.put('/user/update-avatar',AuthController.checkLoggedIn,UserController.updateAvatar);
+    router.put('/user/update-info',AuthController.checkLoggedIn,UserController.updateInfo);
     return app.use('/',router);
 }
 module.exports = initRoutes;
