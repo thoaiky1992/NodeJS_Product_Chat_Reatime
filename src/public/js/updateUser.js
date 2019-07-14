@@ -106,7 +106,7 @@ $(function(){
         userInfo.gender = $(this).val();
         changeInfo = true;
     });
-    $('#input-change-address').bind('keyup',function(){
+    $('#input-change-address').bind('change',function(){
         address = $(this).val();
         if( address.length < 3 || address.length > 80){
             alertify.notify('Địa chỉ giới hạn trong 3-30 kí tự','error',7),

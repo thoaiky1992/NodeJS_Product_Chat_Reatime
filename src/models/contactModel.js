@@ -12,6 +12,16 @@ const ContactSchema = new Schema({
 ContactSchema.statics = {
     createNew(item){
         return this.create(item)
+    },
+    // tìm tất cả bản ghi liên quan tới UserID
+    findAllByUser(userId){
+        return this.find({
+            $or : [
+                {"userID":userId},
+                {"contactID":userId}
+                
+            ]
+        }).exec();
     }
 }
 module.exports = mongoose.model('contact',ContactSchema);

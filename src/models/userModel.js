@@ -62,6 +62,27 @@ UserSchema.statics = { // UserSchema.statics : để tìm bản ghi và truy v�
     },
     updatePassword(id,hashedPassword){
         return this.findByIdAndUpdate(id,{"local.password":hashedPassword}).exec();
+    },
+    /**
+     * find all users for add contactt
+     * @param {array} deprecatedUserIds 
+     * @param {string} keyword 
+     */
+    findAllOrAddContact(deprecatedUserIds, keyword){
+        return this.find({
+            $and : [
+                {_id : { $nin : deprecatedUserIds }}, // nin (not in) : tìm những ID ko nằm trong mảng ID
+                {"local.isActive" : true},
+                {
+                    $or : [ // $regex : tìm những uername gần giống với keyword
+                        {'username' : { $regex : keyword } }, 
+                        {'local.email' : { $regex : keyword } },
+                        {'facebook.email' : { $regex : keyword } },
+                        {'google.email' : { $regex : keyword } }
+                    ]
+                }
+            ]
+        },{_id:1,username:1,address:1,avatar:1}).exec();
     }
 }
 UserSchema.methods = { // UserSchema.methods: đã tìm được bản ghi và truy vấn trong bản ghi đó

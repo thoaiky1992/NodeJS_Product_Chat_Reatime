@@ -2,6 +2,7 @@ import express from 'express';
 import AuthController from '../controllers/auth.controller';
 import HomeController from '../controllers/home.controller';
 import UserController from '../controllers/userController';
+import ContactController from '../controllers/contactController';
 import {authValid,userValid}    from '../validation/index';
 import passport from 'passport';
 import initPassportLocal from '../controllers/passportController/local';
@@ -40,6 +41,7 @@ let initRoutes = (app) => {
     router.put('/user/update-avatar',AuthController.checkLoggedIn,UserController.updateAvatar);
     router.put('/user/update-info',AuthController.checkLoggedIn,userValid.updateInfo ,UserController.updateInfo);
     router.put('/user/update-password',AuthController.checkLoggedIn,userValid.updatePassword, UserController.updatePassword)
+    router.get('/contact/find-users/:keyword',AuthController.checkLoggedIn,ContactController.findUsersContact);
     return app.use('/',router);
 }
 module.exports = initRoutes;

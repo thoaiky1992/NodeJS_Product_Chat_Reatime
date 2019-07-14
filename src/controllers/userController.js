@@ -41,7 +41,10 @@ let updateAvatar = (req,res) => {
             // update User
             let userUpdate = await user.updateUser(req.user._id,updateUserItem);
             // xoá avatar cũ
-            await fsExtra.remove(`${app.avatar_directory}/${userUpdate.avatar}`);
+            let remove_avatar_by_src = `${app.avatar_directory}/${userUpdate.avatar}`;
+            if(remove_avatar_by_src !== 'src/public/images/users/avatar-default.jpg'){
+                await fsExtra.remove(remove_avatar_by_src);
+            }
             let result = {
                 message : transSuccess.user_info_or_avatar_updated,
                 imageSrc : `/images/users/${req.file.filename}`
