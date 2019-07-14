@@ -12,6 +12,8 @@ export const transErrors = {
     account_in_use : 'Email này đã được sử dụng !!!',
     account_not_active : 'Email đã được đăng ký nhưng chưa active tài khoản ! vui lòng kiểm tra Mail hoặc liên hệ với bộ phận hỗ trợ',
     account_removed : 'Tài khoản này đã bị xoá khỏi hệ thống',
+    account_undefined : 'Tài khoản này không tồn tại',
+    user_current_password_failed : 'Mật khẩu này không tồn tại !!!',
     token_undefined : 'Token không tồn tại !!!',
     login_failed : ' Sai tài khoản hoặc mật khẩu',
     server_error : 'Có lỗi ở phía server trong quá trình đăng nhập ! xin vui lòng liên hệ với bộ phận hỗ trợ của chúng tôi để xử lý , xin cảm ơn',
@@ -27,7 +29,8 @@ export const transSuccess = {
         return `Xin chào ${username} , chúc bạn có 1 ngày thật vui vẽ và tốt lành ...`;
     },
     logout_success : 'Đăng xuất tài khoản thành cmn công nhé ',
-    user_info_or_avatar_updated : 'Cập nhập thông tin thành cmn công .'
+    user_info_or_avatar_updated : 'Cập nhập thông tin thành cmn công .',
+    user_password_updated : 'Cập nhật mật khẩu thành cmn công nhé !!',
     
 }
 export const transMail = {

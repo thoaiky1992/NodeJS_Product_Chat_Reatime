@@ -39,6 +39,7 @@ let initRoutes = (app) => {
     }));
     router.put('/user/update-avatar',AuthController.checkLoggedIn,UserController.updateAvatar);
     router.put('/user/update-info',AuthController.checkLoggedIn,userValid.updateInfo ,UserController.updateInfo);
+    router.put('/user/update-password',AuthController.checkLoggedIn,userValid.updatePassword, UserController.updatePassword)
     return app.use('/',router);
 }
 module.exports = initRoutes;

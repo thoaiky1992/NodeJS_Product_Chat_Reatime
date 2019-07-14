@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body onload="spinLoaded()">
+    
     <!--Icon loader-->
     <div id="loader"></div>
     
@@ -43,6 +44,7 @@
     <!-- My js-->
     <script src="js/mainConfig.js"></script>
     <script src="js/updateUser.js"></script>
+    
     <!-- include('../contacts/contactsModal'); -->
     <%- include('contact/contactModal')%>
 
@@ -55,10 +57,22 @@
     <!-- include('../attachs/attachsModal'); -->
     <%- include('attach/attachModal')%> 
         
+    <!--include('user/changePasswordModal') -->
+    <%- include('user/changePasswordModal') %>
+    
     <!-- include('../users/profileModal'); -->
     <%- include('user/userModal')%> 
 
+    
+    
     <!-- include('../groupChat/groupChatModal'); -->
     <%- include('groupChat/groupChatModal')%> 
+    <script>
+        $(function(){
+            $(document).on('click','.click_change_password',function(){
+                $('#change-password').show();
+            })
+        })
+    </script>
 </body>
 </html>

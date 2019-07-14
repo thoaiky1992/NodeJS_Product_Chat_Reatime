@@ -1278,3 +1278,6 @@ label:focus,
 .user-modal-alert-error , .user-modal-alert-success{
   display: none;
 }
+.change-password-modal-alert-error , .change-password-modal-alert-success{
+  display: none;
+}

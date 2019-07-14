@@ -51,6 +51,7 @@ let verifyAccount = (token) => {
         resolve(transSuccess.account_actived)
     })
 }
+
 module.exports = {
     register,
     verifyAccount
