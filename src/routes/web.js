@@ -41,7 +41,10 @@ let initRoutes = (app) => {
     router.put('/user/update-avatar',AuthController.checkLoggedIn,UserController.updateAvatar);
     router.put('/user/update-info',AuthController.checkLoggedIn,userValid.updateInfo ,UserController.updateInfo);
     router.put('/user/update-password',AuthController.checkLoggedIn,userValid.updatePassword, UserController.updatePassword)
+    
     router.get('/contact/find-users/:keyword',AuthController.checkLoggedIn,ContactController.findUsersContact);
+    router.post('/contact/add-new',AuthController.checkLoggedIn,ContactController.addNew);
+    router.delete('/contact/remove-request-contact',AuthController.checkLoggedIn,ContactController.removeRequestContact);
     return app.use('/',router);
 }
 module.exports = initRoutes;

@@ -75,10 +75,10 @@ UserSchema.statics = { // UserSchema.statics : để tìm bản ghi và truy v�
                 {"local.isActive" : true},
                 {
                     $or : [ // $regex : tìm những uername gần giống với keyword
-                        {'username' : { $regex : keyword } }, 
-                        {'local.email' : { $regex : keyword } },
-                        {'facebook.email' : { $regex : keyword } },
-                        {'google.email' : { $regex : keyword } }
+                        {'username' : { $regex : new RegExp(keyword,"i") } }, 
+                        {'local.email' : { $regex : new RegExp(keyword,"i") } },
+                        {'facebook.email' : { $regex : new RegExp(keyword,"i") } },
+                        {'google.email' : { $regex : new RegExp(keyword,"i") } }
                     ]
                 }
             ]
