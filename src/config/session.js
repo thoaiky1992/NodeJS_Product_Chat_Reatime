@@ -16,9 +16,9 @@ let sessionStore = new mongoStore({
     autoReconnect : true,
     // autoRemove : 'native'
 })
-let configSession = (app) => {
+let config = (app) => {
     app.use(session({
-        key:'',
+        key:'express.sid',
         secret : 'mySecret',
         store : sessionStore,
         resave : true,
@@ -30,4 +30,7 @@ let configSession = (app) => {
 
     }))
 }
-module.exports = configSession;
+module.exports = {
+    config,
+    sessionStore
+};

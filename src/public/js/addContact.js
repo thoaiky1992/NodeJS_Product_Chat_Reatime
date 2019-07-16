@@ -6,7 +6,7 @@ function addContact() {
                 $("#find-user").find(`div.user-add-new-contact[data-uid = ${targetID}]`).hide();
                 $("#find-user").find(`div.user-remove-request-contact[data-uid= ${targetID}]`).css({'display':'inline-block'});
                 increaseNumberNotiContact("count-request-contact-sent");
-                // xử lý realtime
+                socket.emit('add-new-contact' , {contactID : targetID});
             }
         })
     });
