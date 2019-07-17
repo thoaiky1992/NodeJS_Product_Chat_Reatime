@@ -5,8 +5,12 @@
 let addNewContact = (io) => {
     io.on('connection', (socket) => {
         socket.on('add-new-contact',(data) => {
-            console.log(data);
-            console.log(socket.request.user)
+            let currentUser = {
+                id : socket.request.user._id,
+                username : socket.request.user.username,
+                avatar : socket.request.user.avatar,
+            };
+            io.sockets.emit('response-add-new-contact',currentUser);
         });
     })
 }

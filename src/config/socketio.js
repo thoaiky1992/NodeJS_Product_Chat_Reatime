@@ -3,8 +3,8 @@ import passportSocketIo from 'passport.socketio';
 let configSocketIo = (io,cookieParser,sessionStore) => {
     io.use(passportSocketIo.authorize({
         cookieParser : cookieParser,
-        key :'express.sid',
-        secret : 'mySecret',
+        key :'express.sid', // phải giống với config bên session
+        secret : 'mySecret',// phải giống với config bên session
         store :  sessionStore,
         success : (data,accept) => {
             if(!data.user.logged_in){
