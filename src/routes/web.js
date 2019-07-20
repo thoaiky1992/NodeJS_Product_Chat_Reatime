@@ -3,6 +3,7 @@ import AuthController from '../controllers/auth.controller';
 import HomeController from '../controllers/home.controller';
 import UserController from '../controllers/userController';
 import ContactController from '../controllers/contactController';
+import notificationController from '../controllers/notificationController';
 import {authValid,userValid}    from '../validation/index';
 import passport from 'passport';
 import initPassportLocal from '../controllers/passportController/local';
@@ -45,6 +46,9 @@ let initRoutes = (app) => {
     router.get('/contact/find-users/:keyword',AuthController.checkLoggedIn,ContactController.findUsersContact);
     router.post('/contact/add-new',AuthController.checkLoggedIn,ContactController.addNew);
     router.delete('/contact/remove-request-contact',AuthController.checkLoggedIn,ContactController.removeRequestContact);
+
+    router.get('/notification/read-more',AuthController.checkLoggedIn,notificationController.readMore);
+    router.put('/notification/mark-notify-read',AuthController.checkLoggedIn,notificationController.markNotificationAsRead);
     return app.use('/',router);
 }
 module.exports = initRoutes;
