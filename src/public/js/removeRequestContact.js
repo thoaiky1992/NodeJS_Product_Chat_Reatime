@@ -11,6 +11,8 @@ function removeRequestContact() {
                     $("#find-user").find(`div.user-remove-request-contact[data-uid = ${targetID}]`).hide();
                     $("#find-user").find(`div.user-add-new-contact[data-uid= ${targetID}]`).css({'display':'inline-block'});
                     decreaseNumberNotiContact("count-request-contact-sent");
+                    //xoá ở modal tab đang chờ xác nhận
+                    $('#request-contact-sent').find(`li[data-uid = ${targetID}]`).remove();
                     // xử lý realtime
                     socket.emit('remove-request-contact',{contactId : targetID});
                 }
@@ -21,7 +23,8 @@ function removeRequestContact() {
 socket.on('response-remove-request-contact',function(user){
     $('.noti_content').find(`div[data-uid = ${user.id}]`).remove(); // popup contify 
     $('ul.list-notifications').find(`li>div[data-uid = ${user.id}]`).parent().remove();
-    // xoá ở modal yêu cầu kết bạn  
+    // xoá ở modal yêu cầu kết bạn 
+    $('#request-contact-received').find(`li[data-uid = ${user.id}]`).remove(); 
     decreaseNumberNotiContact("count-request-contact-received");
 
     decreaseNumberNotification("noti_contact_counter",1);

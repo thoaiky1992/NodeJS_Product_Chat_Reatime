@@ -279,7 +279,6 @@ $(function(){
         });
     }
     function CallUpdateUserInfo(){
-        console.log(userInfo)
         $.ajax({
             url : '/user/update-info',
             type : 'put',
