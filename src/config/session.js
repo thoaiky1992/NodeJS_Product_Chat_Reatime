@@ -26,8 +26,6 @@ let config = (app) => {
         coookie : {
             maxAge : 1000 * 60 * 60 * 24 // 86400000 seconds =  1 day
         }
-
-
     }))
 }
 module.exports = {

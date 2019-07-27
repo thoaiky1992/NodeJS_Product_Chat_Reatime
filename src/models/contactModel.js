@@ -100,6 +100,35 @@ ContactSchema.statics = {
             ]
         }).exec();
     },
+    readMoreContacts(userId,skip,limit){
+        return this.find({
+            $and : [
+                {
+                    $or : [
+                        {'userID' : userId},
+                        {'contactID' : userId},
+                    ]
+                },
+                {'status' :  true}
+            ]
+        }).sort({'createAt':-1}).skip(skip).limit(limit).exec();
+    },
+    readMoreContactsSent(userId,skip,limit){
+        return this.find({
+            $and : [
+                {'userID' : userId},
+                {'status' :  false}
+            ]
+        }).sort({'createAt':-1}).skip(skip).limit(limit).exec();
+    },
+    readMoreContactsRecived(userId,skip,limit){
+        return this.find({
+            $and : [
+                {'contactID' : userId},
+                {'status' :  false}
+            ]
+        }).sort({'createAt':-1}).skip(skip).limit(limit).exec();
+    }
 
 }
 module.exports = mongoose.model('contact',ContactSchema);
