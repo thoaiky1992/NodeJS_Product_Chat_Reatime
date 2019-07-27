@@ -128,6 +128,13 @@ ContactSchema.statics = {
                 {'status' :  false}
             ]
         }).sort({'createAt':-1}).skip(skip).limit(limit).exec();
+    },
+    removeRequestContactReceived(userID,contactID){
+        return this.deleteOne({
+            $and : [
+                {"contactID":userID},{"userID":contactID}
+            ]
+        }).exec();
     }
 
 }

@@ -29,7 +29,7 @@ $(function(){
                         <div class="user-acccept-contact-received" data-uid="${user._id}">
                             Chấp nhận
                         </div>
-                        <div class="user-reject-request-contact-received action-danger"
+                        <div class="user-remove-request-contact-received action-danger"
                             data-uid="${user._id}">
                             Xóa yêu cầu
                         </div>
@@ -38,6 +38,7 @@ $(function(){
                 })
                 $('#link-read-more-contact-recived').css({'display':'block'});
                 $('.red-more-contact-recevied-loader').css({'display':'none'});
+                removeRequestContactReceived();
             })
         }, 1000);
         

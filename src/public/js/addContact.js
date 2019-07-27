@@ -5,13 +5,15 @@ function addContact() {
             if(data.success){
                 $("#find-user").find(`div.user-add-new-contact[data-uid = ${targetID}]`).hide();
                 $("#find-user").find(`div.user-remove-request-contact-sent[data-uid= ${targetID}]`).css({'display':'inline-block'});
-                increaseNumberNotiContact("count-request-contact-sent");
+
+                increaseNumberNotification("noti_contact_counter",1); // js/caculateNotification
+                increaseNumberNotiContact("count-request-contact-sent"); // js/caculateNotiContact
                 // thêm ở modal tab đang chờ xác nhận
                 let userInfoHtml = $('#find-user').find(`ul li[data-uid = ${targetID}]`).get(0).outerHTML;
                 $('#request-contact-sent').find('ul').prepend(userInfoHtml);
 
                 removeRequestContactSent();
-                
+
                 socket.emit('add-new-contact' , {contactId : targetID});
             }
         })
@@ -47,11 +49,12 @@ socket.on('response-add-new-contact',function(user){
                             <div class="user-acccept-contact-received" data-uid="${user.id}">
                                 Chấp nhận
                             </div>
-                            <div class="user-reject-request-contact-received action-danger"
+                            <div class="user-remove-request-contact-received action-danger"
                                 data-uid="${user.id}">
                                 Xóa yêu cầu
                             </div>
                         </div>
                     </li>`;
     $('#request-contact-received').find('ul').prepend(userInfoHtml);
+    removeRequestContactReceived();
 })

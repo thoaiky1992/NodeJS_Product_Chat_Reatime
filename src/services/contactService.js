@@ -168,6 +168,18 @@ let readMoreContactsRecived = (currentUserId,skipNumberContacts) => {
         }
     })
 }
+let removeRequestContactReceived = (currentID, contactID) => {
+    return new Promise(async(resolve,reject) => {
+        let removeReq = await contactModel.removeRequestContactReceived(currentID,contactID);
+        if(removeReq.n === 0){
+            return reject(false)
+        }
+        //remove notification
+        //let notifyTypeAddContact = notificationModel.types.ADD_CONTACT;
+        //await notificationModel.model.removeRequestContactReceivedNotification(currentID,contactID,notifyTypeAddContact);
+        resolve(true);
+    })
+}
 
 module.exports = {
     findUsersContact,
@@ -181,5 +193,6 @@ module.exports = {
     countAllContactsRecevied,
     readMoreContacts,
     readMoreContactsSent,
-    readMoreContactsRecived
+    readMoreContactsRecived,
+    removeRequestContactReceived
 }
