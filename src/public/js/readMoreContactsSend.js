@@ -26,12 +26,15 @@ $(function(){
                         <div class="user-address">
                             <span>&nbsp ${(user.username !==null) ? user.username : "" }</span>
                         </div>
-                        <div class="user-remove-request-sent action-danger" data-uid="${user._id}">
+                        <div class="user-remove-request-contact-sent display-important action-danger" data-uid="${user._id}">
                             Hủy yêu cầu
                         </div>
                     </div>
                 </li>`); 
                 })
+                
+                removeRequestContactSent();
+
                 $('#link-read-more-contact-sent').css({'display':'block'});
                 $('.red-more-contacts-send-loader').css({'display':'none'});
             })
