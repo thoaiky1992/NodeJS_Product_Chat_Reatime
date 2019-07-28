@@ -35,7 +35,8 @@ $(function(){
                         </div>
                     </li>`); 
                 })
-                $('#link-read-more-contacts').css({'display':'block'});
+                removeContact();
+                $('#link-read-more-contacts').css({'display':'inline-block'});
                 $('.red-more-contacts-loader').css({'display':'none'});
             })
         }, 1000);

@@ -207,13 +207,13 @@ $(function(){
             cancelButtonColor: '#d33',
             confirmButtonText: 'Xác Nhận',
             cancelButtonText: 'Huỷ Bỏ'
-          }).then((result) => {
+        }).then((result) => {
             if(!result.value){
                 $('#input-btn-cancel-update-user-password').click();
                 return false;
             }
             CallUpdateUserPassword();
-          })
+        })
     });
     $('#input-btn-cancel-update-user-password').bind('click',function(){
         userUpdatePassword = {};

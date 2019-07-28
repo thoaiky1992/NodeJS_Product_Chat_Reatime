@@ -17,6 +17,7 @@ function removeRequestContactReceived() {
                     decreaseNumberNotiContact("count-request-contact-received");
                     // xoá ở modal yêu cầu kết bạn 
                     $('#request-contact-received').find(`li[data-uid = ${targetID}]`).remove(); 
+                    
                     // xử lý realtime
                     socket.emit('remove-request-contact-received',{contactId : targetID});
                 }

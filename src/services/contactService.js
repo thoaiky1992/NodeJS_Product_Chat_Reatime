@@ -2,7 +2,7 @@ import contactModel from '../models/contactModel';
 import userModel from '../models/userModel';
 import notificationModel from '../models/notificationModel';
 import _ from 'lodash';
-const LIMIT = 1;
+const LIMIT = 6;
 let findUsersContact = (currentUserId,keyword) => {
     return new Promise( async (resolve,reject)=> {
         let deprecatedUserIds = [currentUserId]; // những ID không dùng nữa
@@ -36,6 +36,15 @@ let addNew = (currentID, contactID) => {
         }
         await notificationModel.model.createNew(notificationItem);
         resolve(newContact);
+    })
+}
+let removeContact = (currentID, contactID) => {
+    return new Promise(async(resolve,reject) => {
+        let removeContact = await contactModel.removeContact(currentID,contactID);
+        if(removeContact.n === 0){
+            return reject(false)
+        }
+        resolve(true);
     })
 }
 let removeRequestContactSent = (currentID, contactID) => {
@@ -211,5 +220,6 @@ module.exports = {
     readMoreContactsSent,
     readMoreContactsRecived,
     removeRequestContactReceived,
-    approveRequestContactReceived
+    approveRequestContactReceived,
+    removeContact
 }
