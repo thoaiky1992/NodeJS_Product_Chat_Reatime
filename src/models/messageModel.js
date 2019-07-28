@@ -18,4 +18,4 @@ const Messagechema = new Schema({
     updateAt    : {type:Number,default:null},
     deleteAt    : {type:Number,default:null},
 });
-module.export = mongoose.model('message',Messagechema);
+module.exports = mongoose.model('message',Messagechema);
