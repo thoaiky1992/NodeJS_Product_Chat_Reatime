@@ -28,8 +28,10 @@ socket.on('response-add-new-contact',function(user){
                 </div>`;
     $('.noti_content').prepend(notify); // popup notifications
     $('ul.list-notifications').prepend(`<li>${notify}</li>`); // modal notifications
+    
     increaseNumberNotiContact("count-request-contact-received");
     increaseNumberNotification("noti_contact_counter",1);
+    
     increaseNumberNotification("noti_counter",1);
     // thêm ở modal tab yêu cầu kết bạn
     let userInfoHtml = `<li class="_contactList" data-uid="${user.id}">
@@ -46,7 +48,7 @@ socket.on('response-add-new-contact',function(user){
                             <div class="user-address">
                                 <span>&nbsp ${user.address}</span>
                             </div>
-                            <div class="user-acccept-contact-received" data-uid="${user.id}">
+                            <div class="user-approve-request-contact-received" data-uid="${user.id}">
                                 Chấp nhận
                             </div>
                             <div class="user-remove-request-contact-received action-danger"
@@ -57,4 +59,5 @@ socket.on('response-add-new-contact',function(user){
                     </li>`;
     $('#request-contact-received').find('ul').prepend(userInfoHtml);
     removeRequestContactReceived();
+    approveRequestContactReceived();
 })

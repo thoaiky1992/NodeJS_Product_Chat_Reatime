@@ -73,6 +73,16 @@ let removeRequestContactReceived = async (req,res) => {
         return res.status(500).send(error);
     }
 }
+let approveRequestContactReceived = async (req,res) => {
+    try {
+        let currentId = req.user._id;
+        let contactId = req.body.uid;
+        let approveReq = await contact.approveRequestContactReceived(currentId,contactId);
+        return res.status(200).send({success:!!approveReq});
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+}
 
 
 module.exports = {
@@ -82,5 +92,6 @@ module.exports = {
     readMoreContacts,
     readMoreContactsSent,
     readMoreContactsRecived,
-    removeRequestContactReceived
+    removeRequestContactReceived,
+    approveRequestContactReceived
 }

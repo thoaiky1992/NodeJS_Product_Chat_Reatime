@@ -26,7 +26,7 @@ $(function(){
                         <div class="user-address">
                             <span>&nbsp ${ (user.address !== null) ? user.address : "" }</span>
                         </div>
-                        <div class="user-acccept-contact-received" data-uid="${user._id}">
+                        <div class="user-approve-request-contact-received" data-uid="${user._id}">
                             Chấp nhận
                         </div>
                         <div class="user-remove-request-contact-received action-danger"
@@ -39,6 +39,7 @@ $(function(){
                 $('#link-read-more-contact-recived').css({'display':'block'});
                 $('.red-more-contact-recevied-loader').css({'display':'none'});
                 removeRequestContactReceived();
+                approveRequestContactReceived();
             })
         }, 1000);
         
