@@ -1,5 +1,10 @@
 function increaseNumberNotification(className,number){
-    let currentValue = parseInt($(`.${className}`).text());
+    let currentValue = $(`.${className}`).text();
+    if(currentValue == ''){
+        ifcurrentValue = 0;
+    }else{
+        currentValue = parseInt(currentValue);
+    }
     currentValue += number;
     if(currentValue === 0){
         $(`.${className}`).css({'display':'none'}).html("");
