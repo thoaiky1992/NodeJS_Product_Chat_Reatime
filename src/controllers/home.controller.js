@@ -16,7 +16,6 @@ let getHome = async(req,res) => {
     let countAllContactsRecevied = await contact.countAllContactsRecevied(req.user._id)
 
     let letAllConversationItems = await message.letAllConversationItems(req.user._id);
-    console.log(letAllConversationItems)
     let allConversations = letAllConversationItems.allConversations;
     let userConversations = letAllConversationItems.userConversations;
     let groupConversations = letAllConversationItems.groupConversations;
