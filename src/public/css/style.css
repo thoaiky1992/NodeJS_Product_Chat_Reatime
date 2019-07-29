@@ -1448,4 +1448,10 @@ label:focus,
 .display-important{
   display: inline-block !important;
 }
+.read-more-all-chat , .read-more-user-chat , .read-more-group-chat{
+ text-align: center;
+}
+.tab-content > .active {
+  background-color: #FFFFFF;
+}
 

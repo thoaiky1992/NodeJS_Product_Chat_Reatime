@@ -34,7 +34,6 @@ let initPassportGoogle = () => {
             let NewUser = await userModel.createNew(newUserItem);
             return done(null,NewUser,req.flash('success',transSuccess.loginSuccess(NewUser.username)))
 		} catch (error) {
-			console.log(error);
 			return done(null,false,req.flash('errors',transErrors.server_error))
 		}
 	}));

@@ -15,7 +15,12 @@ let getHome = async(req,res) => {
     let countAllContactsSend = await contact.countAllContactsSend(req.user._id);
     let countAllContactsRecevied = await contact.countAllContactsRecevied(req.user._id)
 
-    let letAllConversationItems = message.letAllConversationItems(req.user._id);
+    let letAllConversationItems = await message.letAllConversationItems(req.user._id);
+    console.log(letAllConversationItems)
+    let allConversations = letAllConversationItems.allConversations;
+    let userConversations = letAllConversationItems.userConversations;
+    let groupConversations = letAllConversationItems.groupConversations;
+    
     res.render('main/home/home',{
         errors :req.flash('errors'),
         success:req.flash('success'),
@@ -27,7 +32,10 @@ let getHome = async(req,res) => {
         contactsRecevied : contactsRecevied,
         countAllContacts : countAllContacts,
         countAllContactsSend : countAllContactsSend,
-        countAllContactsRecevied : countAllContactsRecevied
+        countAllContactsRecevied : countAllContactsRecevied,
+        allConversations : allConversations,
+        userConversations : userConversations,
+        groupConversations : groupConversations
     }) ;
 }
 module.exports = getHome;

@@ -1,6 +1,7 @@
 import contactModel from './../models/contactModel';
 import userModel from './../models/userModel';
 import chatGroupModel from './../models/chatGroupModel';
+import _ from 'lodash';
 const LIMIT_CONVERSATIONS = 10;
 /**
  * get all conversations 
@@ -12,18 +13,28 @@ let letAllConversationItems = (currentUserId) => {
             let contacts = await contactModel.getContacts(currentUserId,LIMIT_CONVERSATIONS);
             let userConversationstPromise = contacts.map( async (contact) => {
                 if(contact.contactID == currentUserId){
-                    return await userModel.getNormalUserDataById(contact.userID);
+                    let getUserContact =  await userModel.getNormalUserDataById(contact.userID);
+                    getUserContact.createAt = contact.createAt;
+                    return getUserContact;
                 }
                 else{
-                    return await userModel.getNormalUserDataById(contact.contactID);
+                    let getUserContact = await userModel.getNormalUserDataById(contact.contactID);
+                    getUserContact.createAt = contact.createAt;
+                    return getUserContact;
                 }
             });
             let userConversations =  await Promise.all(userConversationstPromise);
             let groupConversations = await chatGroupModel.getChatGroups(currentUserId,LIMIT_CONVERSATIONS);
-            console.log(userConversations);
-            console.log("----------------------------------");
-            console.log(groupConversations);
-            resolve(true);
+            let allConversations = userConversations.concat(groupConversations);
+            allConversations = _.sortBy(allConversations , (item) => {
+                return -item.createAt;
+            })
+            resolve({
+                allConversations : allConversations,
+                groupConversations : groupConversations,
+                userConversations : userConversations
+
+            });
         } catch (error) {
             reject(error);
         }

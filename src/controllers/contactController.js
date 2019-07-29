@@ -6,7 +6,6 @@ let findUsersContact = async(req,res) => {
         let users = await contact.findUsersContact(currentUserId,keyword);
         res.render('main/contact/sections/findUsersContact',{users:users} );
     } catch (error) {
-        console.log(error);
         return res.status(500).send(error);
     }
 }
