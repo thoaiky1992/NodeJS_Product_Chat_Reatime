@@ -858,6 +858,9 @@ label:focus,
 .show-image-chat {
   max-width: 50%;
 }
+.show-image-chat-modal {
+  max-width: 100%;
+}
 
 #loader {
   position: absolute;
