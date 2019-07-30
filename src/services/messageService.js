@@ -44,9 +44,6 @@ let letAllConversationItems = (currentUserId) => {
                 return -item.updateAt;
             })
             resolve({
-                allConversations : allConversations,
-                groupConversations : groupConversations,
-                userConversations : userConversations,
                 allConversationWithMessage : allConversationWithMessage
             });
         } catch (error) {
