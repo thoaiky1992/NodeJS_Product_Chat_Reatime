@@ -41,7 +41,7 @@ let initPassportGoogle = () => {
 		done(null,user._id);
 	});
 	passport.deserializeUser((id,done) => {
-		userModel.findUserById(id)
+		userModel.findUserByIdForSessionToUse(id)
 		.then(user => {
 			return done(null,user);
 		})

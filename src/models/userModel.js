@@ -36,8 +36,11 @@ UserSchema.statics = { // UserSchema.statics : để tìm bản ghi và truy v�
     findByEmail(email){
         return this.findOne({"local.email":email}).exec();
     },
-    findUserById(id){
+    findUserByIdToUpdatePassword(id){
         return this.findById(id).exec();
+    },
+    findUserByIdForSessionToUse(id){
+        return this.findById(id,{"local.password" : 0}).exec();
     },
     removeById(id){
         return this.findByIdAndRemove(id).exec();
