@@ -5,9 +5,9 @@ const ContactSchema = new Schema({
     userID      : String,
     contactID   : String,
     status      : {type:Boolean,default:false},
-    createAt    : {type:Number,default:Date.now},
-    updateAt    : {type:Number,default:null},
-    deleteAt    : {type:Number,default:null},
+    createdAt    : {type:Number,default:Date.now},
+    updatedAt    : {type:Number,default:null},
+    deletedAt    : {type:Number,default:null},
 });
 ContactSchema.statics = {
     createNew(item){
@@ -71,7 +71,7 @@ ContactSchema.statics = {
                 },
                 {'status' :  true}
             ]
-        }).sort({'updateAt':-1}).limit(limit).exec();
+        }).sort({'updatedAt':-1}).limit(limit).exec();
     },
     getContactsSend(userID,limit){
         return this.find({
@@ -79,7 +79,7 @@ ContactSchema.statics = {
                 {'userID' : userID},
                 {'status' :  false}
             ]
-        }).sort({'createAt':-1}).limit(limit).exec();
+        }).sort({'createdAt':-1}).limit(limit).exec();
     },
     getContactsRecevied(userID,limit){
         return this.find({
@@ -87,7 +87,7 @@ ContactSchema.statics = {
                 {'contactID' : userID},
                 {'status' :  false}
             ]
-        }).sort({'createAt':-1}).limit(limit).exec();
+        }).sort({'createdAt':-1}).limit(limit).exec();
     },
     countAllContacts(userID){
         return this.countDocuments({
@@ -129,7 +129,7 @@ ContactSchema.statics = {
                 },
                 {'status' :  true}
             ]
-        }).sort({'updateAt':-1}).skip(skip).limit(limit).exec();
+        }).sort({'updatedAt':-1}).skip(skip).limit(limit).exec();
     },
     readMoreContactsSent(userId,skip,limit){
         return this.find({
@@ -137,7 +137,7 @@ ContactSchema.statics = {
                 {'userID' : userId},
                 {'status' :  false}
             ]
-        }).sort({'createAt':-1}).skip(skip).limit(limit).exec();
+        }).sort({'createdAt':-1}).skip(skip).limit(limit).exec();
     },
     readMoreContactsRecived(userId,skip,limit){
         return this.find({
@@ -145,7 +145,7 @@ ContactSchema.statics = {
                 {'contactID' : userId},
                 {'status' :  false}
             ]
-        }).sort({'createAt':-1}).skip(skip).limit(limit).exec();
+        }).sort({'createdAt':-1}).skip(skip).limit(limit).exec();
     },
     removeRequestContactReceived(userID,contactID){ 
         return this.deleteOne({
@@ -170,7 +170,7 @@ ContactSchema.statics = {
             ]
         },{
            "status" :  true ,
-           "updateAt" :  Date.now()
+           "updatedAt" :  Date.now()
         }).exec();
     }
 

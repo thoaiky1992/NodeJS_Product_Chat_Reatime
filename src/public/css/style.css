@@ -1108,7 +1108,15 @@ label:focus,
 .right .bubble.you img {
   float: left;
 }
-
+.right .bubble.me img.avatar-small{
+  margin-left: 10px;
+  margin-top: -5px;
+  display: none;
+}
+.right .bubble.you img.avatar-small{
+  margin-right: 10px;
+  margin-top: -5px;
+}
 .right .bubble.me a {
   float: left;
   border-bottom: 1.5px solid #c8d6e5;

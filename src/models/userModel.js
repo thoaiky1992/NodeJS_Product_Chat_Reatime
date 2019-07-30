@@ -25,9 +25,9 @@ const UserSchema  = new Schema({
         token   : String,
         email   : {type:String,trim : true}
     },
-    createAt : {type:String,default:Date.now},
-    updateAt : {type:String,default:null},
-    deleteAt : {type:String,default:null},
+    createdAt : {type:String,default:Date.now},
+    updatedAt : {type:String,default:null},
+    deletedAt : {type:String,default:null},
 });
 UserSchema.statics = { // UserSchema.statics : để tìm bản ghi và truy vấn
     createNew(item){

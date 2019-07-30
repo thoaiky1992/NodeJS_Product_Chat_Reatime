@@ -7,7 +7,7 @@ const NotificationSchema = new Schema({
     type            : String,
     isRead          : {type:Boolean,default:false},
     file            : {data:Buffer,contentType:String,fileName:String},
-    createAt        : {type:Number,default:Date.now}, 
+    createdAt        : {type:Number,default:Date.now}, 
 });
 NotificationSchema.statics = {
     createNew(item){
@@ -23,10 +23,10 @@ NotificationSchema.statics = {
         }).exec();
     },
     getByUserIdAndLimit(userId,limit){
-        return this.find({receiverId : userId}).sort({createAt:-1}).limit(limit).exec();
+        return this.find({receiverId : userId}).sort({createdAt:-1}).limit(limit).exec();
     },
     readMore(userId,skip,limit){
-        return this.find({receiverId : userId}).sort({createAt:-1}).skip(skip).limit(limit).exec();
+        return this.find({receiverId : userId}).sort({createdAt:-1}).skip(skip).limit(limit).exec();
     },
     countNofityUnread(userId){
         return this.countDocuments({

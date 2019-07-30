@@ -151,6 +151,8 @@ function changeTypeChat(){
 }
 function changeScreenChat(){
   $('.room-chat').unbind('click').on('click',function(){
+    $('.person').removeClass('active');
+    $(this).find("li").addClass('active');
     $(this).tab('show');
   })
 }
@@ -189,5 +191,6 @@ $(document).ready(function() {
 
   //Thay đổi màn hình chát
   changeScreenChat();
+  $('ul.people').find("li")[0].click(); //$('ul.people').find("li").first().click();
 });
 

@@ -31,7 +31,10 @@
                                     <% }else {%>
                                         you
                                     <% }%>" 
-                                    data-mess-id="<%= message._id %>"><%= message.text %></div>
+                                    data-mess-id="<%= message._id %>">
+                                        <img src="/images/users/<%= message.sender.avatar %>" class="avatar-small" alt="">
+                                        <%= message.text %>
+                                    </div>
                                 <% } %>
                                 <% if(message.messageType === "image"){ %>
                                     <div class="bubble 
@@ -40,6 +43,7 @@
                                         <% }else {%>
                                             you
                                         <% }%> bubble-image-file" data-mess-id="<%= message._id %>">
+                                        <img src="/images/users/<%= message.sender.avatar %>" class="avatar-small" alt="">
                                         <img src="data:<%= message.file.contentType %>; base64, <%= bufferToBase64(message.file.data) %>" class="show-image-chat">
                                     </div>
                                 <% } %>
@@ -49,7 +53,8 @@
                                             me
                                         <% }else {%>
                                             you
-                                        <% }%> bubble-image-file" data-mess-id="<%= message._id%>"
+                                        <% }%> bubble-image-file" data-mess-id="<%= message._id%>">
+                                        <img src="/images/users/<%= message.sender.avatar %>" class="avatar-small" alt="">
                                         <a href="data:<%= message.file.contentType %>; base64 , <%= bufferToBase64(message.file.data) %>" download="<%= message.file.fileName%>">
                                             <%= message.file.fileName%>
                                         </a>
@@ -107,7 +112,10 @@
                                     <% }else {%>
                                         you
                                     <% }%>" 
-                                    data-mess-id="<%= message._id %>"><%= message.text %></div>
+                                    data-mess-id="<%= message._id %>">
+                                        <img src="/images/users/<%= message.sender.avatar %>" class="avatar-small" alt="">  
+                                        <%= message.text %>
+                                    </div>
                                 <% } %>
                                 <% if(message.messageType === "image"){ %>
                                     <div class="bubble 
@@ -116,6 +124,7 @@
                                         <% }else {%>
                                             you
                                         <% }%> bubble-image-file" data-mess-id="<%= message._id %>">
+                                        <img src="/images/users/<%= message.sender.avatar %>" class="avatar-small" alt="">
                                         <img src="data:<%= message.file.contentType %>; base64 , <%= bufferToBase64(message.file.data) %>" class="show-image-chat">
                                     </div>
                                 <% } %>
@@ -126,6 +135,7 @@
                                         <% }else {%>
                                             you
                                         <% }%> bubble-image-file" data-mess-id="<%= message._id%>">
+                                        <img src="/images/users/<%= message.sender.avatar %>" class="avatar-small" alt="">
                                         <a href="data:<%= message.file.contentType %>; base64 , <%= bufferToBase64(message.file.data) %>" download="<%= message.file.fileName%>">
                                             <%= message.file.fileName%>
                                         </a>
