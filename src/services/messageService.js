@@ -33,9 +33,14 @@ let letAllConversationItems = (currentUserId) => {
             })
             // get message to apply in screen chat
             let allConversationWidthMessagePromise = allConversations.map( async (conversation) => {
-                let getMessage = await  messageModel.model.getMessage(currentUserId,conversation._id,LIMIT_MESSAGES);
                 conversation = conversation.toObject();
-                conversation.messages = getMessage;
+                if(conversation.members){
+                    let getMessage = await  messageModel.model.getMessageInGroup(conversation._id,LIMIT_MESSAGES);
+                    conversation.messages = getMessage;
+                }else{
+                    let getMessage = await  messageModel.model.getMessageInPersonal(currentUserId,conversation._id,LIMIT_MESSAGES);
+                    conversation.messages = getMessage;
+                }
                 return conversation;
             })
             let allConversationWithMessage = await Promise.all(allConversationWidthMessagePromise);
