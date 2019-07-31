@@ -3,6 +3,7 @@ import AuthController from '../controllers/auth.controller';
 import HomeController from '../controllers/home.controller';
 import UserController from '../controllers/userController';
 import ContactController from '../controllers/contactController';
+import MessageController from '../controllers/messageController';
 import notificationController from '../controllers/notificationController';
 import {authValid,userValid}    from '../validation/index';
 import passport from 'passport';
@@ -56,6 +57,11 @@ let initRoutes = (app) => {
 
     router.get('/notification/read-more',AuthController.checkLoggedIn,notificationController.readMore);
     router.put('/notification/mark-notify-read',AuthController.checkLoggedIn,notificationController.markNotificationAsRead);
+
+    router.post('/message/add-new-text-emoji',AuthController.checkLoggedIn,MessageController.addNewTextEmoji);
+    
+    
+    
     return app.use('/',router);
 }
 module.exports = initRoutes;

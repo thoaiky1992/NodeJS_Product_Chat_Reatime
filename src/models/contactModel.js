@@ -172,6 +172,18 @@ ContactSchema.statics = {
            "status" :  true ,
            "updatedAt" :  Date.now()
         }).exec();
+    },
+    updateWhenHasNewMessage(currentId,contactId){
+        return this.updateOne({
+            $or : [
+                { $and : [
+                    {"userID":currentId},{"contactID":contactId}
+                ]},
+                {$and : [
+                    {"userID":contactId},{"contactID":currentId}
+                ]}
+            ]
+        },{"updatedAt" : Date.now()}).exec();
     }
 
 }

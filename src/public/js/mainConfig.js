@@ -38,9 +38,11 @@ function enableEmojioneArea(divId) {
     shortnames: false,
     events: {
       keyup: function(editor, event) {
+        // gán giá trị thay đổi vào thẻ input đã bị ẩn
         $(`#write-chat-${divId}`).val(this.getText());
       },
       click : function(){
+        // bật lắng nghe DOM cho việc chat tin nhắn văn bản + emoji
         textAndEmojiChat(divId);
       }
     },
@@ -165,7 +167,7 @@ function changeScreenChat(){
     let divId = $(this).find('li').data('chat');
     nineScrollRight(divId);
     // Bật emoji, tham số truyền vào là id của box nhập nội dung tin nhắn
-  enableEmojioneArea(divId);
+    enableEmojioneArea(divId);
   })
 }
 $(document).ready(function() {
@@ -201,6 +203,6 @@ $(document).ready(function() {
 
   //Thay đổi màn hình chát
   changeScreenChat();
-  $('ul.people').find("li")[0].click(); //$('ul.people').find("li").first().click();
+  $('ul.people').find("a")[0].click(); //$('ul.people').find("li").first().click();
 });
 

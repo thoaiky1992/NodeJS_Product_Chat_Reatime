@@ -24,6 +24,9 @@ const MessageSchema = new Schema({
 });
 
 MessageSchema.statics = {
+    createNew(item){
+        return this.create(item);
+    },
     /**
      * get messages in personal
      * @param {string} senderId    : current User Id
