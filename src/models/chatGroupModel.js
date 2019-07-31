@@ -33,7 +33,7 @@ ChatGroupSchema.statics = {
      * @param {number} newMessageAmount 
      */
     updateWhenHasNewMessage(id,newMessageAmount){
-        return findByIdAndUpdate(id,{
+        return this.findByIdAndUpdate(id,{
             "messageAmount" : newMessageAmount,
             "updatedAt" : Date.now()
         }).exec();
