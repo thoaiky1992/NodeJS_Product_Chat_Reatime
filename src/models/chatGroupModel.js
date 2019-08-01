@@ -39,4 +39,4 @@ ChatGroupSchema.statics = {
         }).exec();
     }
 }
-module.exports = mongoose.model('chat-group',ChatGroupSchema);
+module.exports = mongoose.model('group-chat',ChatGroupSchema);

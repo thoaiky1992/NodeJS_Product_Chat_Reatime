@@ -148,6 +148,8 @@
                                         <span class="group-chat-name">
                                             <% if(conversation.name.length > 15){ %> 
                                                 <%= conversation.name.substr(0,11) %><span>...</span>
+                                            <% }else if(conversation.name.length < 10){  %>
+                                                <%= conversation.name %> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                             <% }else{  %>
                                                 <%= conversation.name %>
                                             <% } %> 

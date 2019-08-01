@@ -19,17 +19,15 @@ function textAndEmojiChat(divId){
             $.post("/message/add-new-text-emoji",dataTextEmojiForSend,function(data){
                 // step 01 :  handle message data before show
                 let messageOfMe = $(`<div class="bubble convert-emoji me" data-mess-id="${data.message._id}"></div>`);
-                if(dataTextEmojiForSend.isChatGroup){
-                    messageOfMe.html(`<img src="/images/users/${data.message.sender.avatar}" class="avatar-small" title="${data.message.sender.name}" alt="">`);
-                    messageOfMe.text(data.message.text);
-                    caculateNumberMessageGroup(divId);
-                }else{
-                    messageOfMe.html(`<img src="/images/users/${data.message.sender.avatar}" class="avatar-small" title="${data.message.sender.name}" alt="">`);
-                    messageOfMe.append(data.message.text);
-                }
+                messageOfMe.text(data.message.text);
                 let convertEmojiMessage = emojione.toImage(messageOfMe.html());
-                messageOfMe.html(convertEmojiMessage);
-
+                if(dataTextEmojiForSend.isChatGroup){
+                    let senderAvatar = `<img src="/images/users/${data.message.sender.avatar}" class="avatar-small" title="${data.message.sender.name}" alt="">`;
+                    messageOfMe.html(`${senderAvatar} ${convertEmojiMessage}`);
+                    increaseNumberMessageGroup(divId);
+                }else{
+                    messageOfMe.html(convertEmojiMessage);
+                }
                 //step 02 : append message data to screen
                 $(`.right .chat[data-chat=${divId}]`).append(messageOfMe);
                 nineScrollRight(divId);
