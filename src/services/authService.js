@@ -11,7 +11,7 @@ let register =  (email,gender,password,protocol,host) => {
             if(!userByEmail.local.isActive){
                 return reject(transErrors.account_not_active);
             }
-            if(userByEmail.deleteAt != null){
+            if(userByEmail.deletedAt != null){
                 return reject(transErrors.account_removed);
             }
             return reject(transErrors.account_in_use);

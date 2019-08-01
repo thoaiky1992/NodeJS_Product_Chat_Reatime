@@ -8,12 +8,12 @@ const MessageSchema = new Schema({
     messageType : String,
     sender : {
         id          : String,
-        name    : String,
+        name        : String,
         avatar      : String
     },
     receiver : {
         id          : String,
-        name    : String,
+        name        : String,
         avatar      : String
     },
     text        : String,

@@ -170,6 +170,13 @@ function changeScreenChat(){
     enableEmojioneArea(divId);
   })
 }
+function convertEmoji(){
+  $(".convert-emoji").each(function() {
+    var original = $(this).html();
+    var converted = emojione.toImage(original);
+    $(this).html(converted);
+  });
+}
 $(document).ready(function() {
   
   // Hide số thông báo trên đầu icon mở modal contact
@@ -202,14 +209,13 @@ $(document).ready(function() {
   // Thay đổi kiểu trò chuyện
   changeTypeChat();
 
+  // convert các unicode thành hình ảnh cảm xúc
+  convertEmoji();
+
   //Thay đổi màn hình chát
   changeScreenChat();
   $('ul.people').find("a")[0].click(); //$('ul.people').find("li").first().click();
   
-  $(".convert-emoji").each(function() {
-    var original = $(this).html();
-    var converted = emojione.toImage(original);
-    $(this).html(converted);
-  });
+  
 });
 
