@@ -7,7 +7,7 @@ let addNewContact = (io) => {
     let clients = {};
     io.on('connection', (socket) => {
 
-        pushSocketIdToArray(clients,socket.request.user._id,socket.id);
+        clients = pushSocketIdToArray(clients,socket.request.user._id,socket.id);
         
         socket.on('add-new-contact',(data) => {
             let currentUser = {

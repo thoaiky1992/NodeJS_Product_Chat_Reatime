@@ -1,6 +1,7 @@
 import passport from 'passport';
 import passportLocal from 'passport-local';
 import userModel from '../../models/userModel';
+import ChatGroupModel from '../../models/chatGroupModel';
 import {transErrors,transSuccess} from '../../../lang/vi';
 let localStrategy = passportLocal.Strategy;	 
 
@@ -30,14 +31,16 @@ let initPassportLocal = () => {
 	passport.serializeUser((user,done) => { //  lưu  user vào session
 		done(null,user._id);
 	});
-	passport.deserializeUser((id,done) => {
-		userModel.findUserByIdForSessionToUse(id)
-		.then(user => {
+	passport.deserializeUser(async (id,done) => {
+		try {
+			let user = await userModel.findUserByIdForSessionToUse(id);
+			let chatGroupIds = await ChatGroupModel.getChatGroupIdsByUser(user._id);
+			user = user.toObject();
+			user.chatGroupIds = chatGroupIds;
 			return done(null,user);
-		})
-		.catch(error => {
+		} catch (error) {
 			return done(error,null);
-		})
+		}
 	})
 }
 module.exports = initPassportLocal;

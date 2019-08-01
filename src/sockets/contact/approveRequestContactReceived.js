@@ -7,7 +7,7 @@ let approveRequestContactReceived = (io) => {
     let clients = {};
     io.on('connection', (socket) => {
 
-        pushSocketIdToArray(clients,socket.request.user._id,socket.id);
+        clients = pushSocketIdToArray(clients,socket.request.user._id,socket.id);
         
         socket.on('approve-request-contact-received',(data) => {
             let currentUser = {
