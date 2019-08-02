@@ -59,7 +59,7 @@ let initRoutes = (app) => {
     router.put('/notification/mark-notify-read',AuthController.checkLoggedIn,notificationController.markNotificationAsRead);
 
     router.post('/message/add-new-text-emoji',AuthController.checkLoggedIn,MessageController.addNewTextEmoji);
-    
+    router.post('/message/add-new-image',AuthController.checkLoggedIn,MessageController.addNewImage);
     
     
     return app.use('/',router);

@@ -36,6 +36,7 @@ function enableEmojioneArea(divId) {
     hidePickerOnBlur: true,
     search: false,
     shortnames: false,
+    recentEmojis: false,
     events: {
       keyup: function(editor, event) {
         // gán giá trị thay đổi vào thẻ input đã bị ẩn
@@ -174,6 +175,8 @@ function changeScreenChat(){
     nineScrollRight(divId);
     // Bật emoji, tham số truyền vào là id của box nhập nội dung tin nhắn
     enableEmojioneArea(divId);
+    // Bật lắng nghe DOM cho việc chat tin nhắn hình ảnh
+    imageChat(divId);
   })
 }
 function convertEmoji(){
@@ -221,7 +224,6 @@ $(document).ready(function() {
   //Thay đổi màn hình chát
   changeScreenChat();
   $('ul.people').find("a")[0].click(); //$('ul.people').find("li").first().click();
-  
   
 });
 

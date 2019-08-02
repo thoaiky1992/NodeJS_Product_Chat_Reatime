@@ -19,7 +19,9 @@ export const transErrors = {
     server_error : 'Có lỗi ở phía server trong quá trình đăng nhập ! xin vui lòng liên hệ với bộ phận hỗ trợ của chúng tôi để xử lý , xin cảm ơn',
     avatar_type : 'Kiểu file không hợp lệ ! chỉ chấp nhận JPG - JNG - JPEG',
     avatar_size : 'File không được vượt quá 1MB .',
-    conversation_not_found : "cuộc trò chuyện không tồn tại"
+    conversation_not_found : "cuộc trò chuyện không tồn tại",
+    image_message_type : 'Kiểu file không hợp lệ ! chỉ chấp nhận JPG - JNG - JPEG',
+    image_message_size : 'File không được vượt quá 1MB .',
 }
 export const transSuccess = {
     userCreated : (userEmail) => {
