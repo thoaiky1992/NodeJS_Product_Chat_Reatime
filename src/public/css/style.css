@@ -1485,3 +1485,6 @@ label:focus,
   left: 0;
   margin-left: -30px;
 }
+.you  > .emojione , .me  > .emojione{
+  float:  none !important;
+}

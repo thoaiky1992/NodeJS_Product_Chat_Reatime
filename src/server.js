@@ -56,33 +56,41 @@ server.listen(port,hostname,()=>{
 
 // cấu hình https ảo
 // pem.config({
-//     pathOpenSSL: 'C:\\Program Files\\OpenSSL-Win64\\bin\\openssl'
+//     pathOpenSSL: 'C:\\Program Files\\OpenSSL-Win64\\bin\\openssl' // thay đường dẫn đó vào và thêm  \\ openssl
 // })
 // pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {
 //   if (err) {
 //     throw err
 //   }
-//     //connect to MongoDB
-//     connectDB();
+// //connect to MongoDB
+// connectDB();
 
-//     //config session
-//     configSession(app);
+// //config session
+// session.config(app);
 
-//     //config view engine
-//     configViewEngine(app);
+// //config view engine
+// configViewEngine(app);
 
-//     //enable post data for request
-//     app.use(bodyParser.urlencoded({extended:true}));
+// //enable post data for request
+// app.use(bodyParser.urlencoded({extended:true}));
 
-//     // enable connect flash massage
-//     app.use(connectFlash());
+// // enable connect flash massage
+// app.use(connectFlash());
+// // User cookie parser
+// app.use(cookieParser());
 
-//     // config passport js
-//     app.use(passport.initialize());
-//     app.use(passport.session());
+// // config passport js
+// app.use(passport.initialize());
+// app.use(passport.session());
 
-//     // init all routes
-//     initRoutes(app);
+// // init all routes
+// initRoutes(app);
+
+// // config socketIo
+// configSocketIo(io,cookieParser,session.sessionStore);
+
+// // init all socket
+// initSockets(io);
  
 //   https.createServer({ key: keys.serviceKey, cert: keys.certificate }, app).listen(port,hostname,()=>{
 //     console.log(`starting ${hostname}:${port}`);

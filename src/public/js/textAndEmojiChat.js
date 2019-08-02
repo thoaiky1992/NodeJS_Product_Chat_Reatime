@@ -56,6 +56,14 @@ function textAndEmojiChat(divId){
                 //step 06 : emit realtime
                 socket.emit('chat-text-emoji',dataToEmit);
 
+                // step 07 : emit remove typing real-time
+                typingOff(divId);
+
+                // step 08 : if this has typing . remove that immediate
+                let checkTyping = $(`.chat[data-chat=${divId}]`).find("div.bubble-typing-gif");
+                if(checkTyping.length){
+                    checkTyping.remove();
+                }
             }).fail(function(response){
                 console.log(response)
             })
@@ -78,7 +86,8 @@ $(document).ready(function(){
             }
         }else{
             divId = response.currentUserId;
-            messageOfYou.html(convertEmojiMessage);
+            let senderAvatar = `<img src="/images/users/${response.message.sender.avatar}" class="avatar-small you-avatar" title="${response.message.sender.name}" alt="">`;
+            messageOfYou.html(`${senderAvatar} ${convertEmojiMessage}`);
         }
         
         //step 02 : append message data to screen
