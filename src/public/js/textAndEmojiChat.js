@@ -64,6 +64,7 @@ function textAndEmojiChat(divId){
                 if(checkTyping.length){
                     checkTyping.remove();
                 }
+                nineScrollRight(divId);
             }).fail(function(response){
                 console.log(response)
             })
