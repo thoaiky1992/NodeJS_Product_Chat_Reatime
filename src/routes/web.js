@@ -60,7 +60,7 @@ let initRoutes = (app) => {
 
     router.post('/message/add-new-text-emoji',AuthController.checkLoggedIn,MessageController.addNewTextEmoji);
     router.post('/message/add-new-image',AuthController.checkLoggedIn,MessageController.addNewImage);
-    
+    router.post('/message/add-new-attachment',AuthController.checkLoggedIn,MessageController.addNewAttachment);
     
     return app.use('/',router);
 }

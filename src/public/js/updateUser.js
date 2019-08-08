@@ -72,7 +72,7 @@ $(function(){
         });
     }
     updateUserInfo();
-    $('#input-change-username').bind('keyup',function(){
+    $('#input-change-username').bind('change',function(){
         username = $(this).val();
         let regexUsername = new RegExp("^[\s0-9a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$");
         if(!regexUsername.test(username) || username.length < 3 || username.length > 17){

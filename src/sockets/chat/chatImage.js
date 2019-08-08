@@ -32,10 +32,7 @@ let chatImage = (io) => {
                 if(clients[data.contactId]){
                     emitNotifyToArray(clients,data.contactId,io,'response-chat-image',response);
                 }
-            }
-            
-            
-            
+            }  
         });
         socket.on('disconnect',() => {
             // remove socketId when socket disconnected
