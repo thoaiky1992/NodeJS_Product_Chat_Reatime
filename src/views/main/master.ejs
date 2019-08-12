@@ -48,7 +48,7 @@
     <script src="js/typingOnOf.js"></script>
     <script src="js/imageChat.js"></script>
     <script src="js/attachmentChat.js"></script>
-    <script src="js/userOnlineOffline.js"></script>
+    
     <!-- My js-->
     <script src="js/textAndEmojiChat.js"></script>
     <script src="js/mainConfig.js"></script>
@@ -61,6 +61,7 @@
     <script src="js/approveRequestContactReceived.js"></script>
     <script src="js/removeContact.js"></script>
     <script src="js/findUsersContact.js"></script>
+    <script src="js/userOnlineOffline.js"></script>
     
     <script src="js/markNotifyAsRead.js"></script>
     <script src="js/readMoreNotify.js"></script>
@@ -73,6 +74,9 @@
     <!-- include('../contacts/contactsModal'); -->
     <%- include('contact/contactModal')%>
 
+    <!-- include('../groupChat/groupChatModal'); -->
+    <%- include('groupChat/groupChatModal')%> 
+    
     <!-- include('../stream/streamModal'); -->
     <%- include('streaming/streamingModal')%> 
 
@@ -90,8 +94,7 @@
 
     
     
-    <!-- include('../groupChat/groupChatModal'); -->
-    <%- include('groupChat/groupChatModal')%> 
+    
     <script>
         $(function(){
             $(document).on('click','.click_change_password',function(){

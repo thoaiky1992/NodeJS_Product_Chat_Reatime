@@ -16,6 +16,19 @@ let findUsersContact = (currentUserId,keyword) => {
         resolve(users);
     });
 }
+let searchFriends = (currentUserId,keyword) => {
+    return new Promise( async (resolve,reject)=> {
+        let friendIds = [];
+        let friends = await contactModel.getFriends(currentUserId);
+        friends.forEach((item) => {
+            friendIds.push(item.userId);
+            friendIds.push(item.contactId);
+        });
+        friendIds = _.uniqBy(friendIds) ; // lọc những ID trùng trong mảng
+        resolve(users);
+    });
+}
+
 let addNew = (currentID, contactID) => {
     return new Promise(async(resolve,reject) => {
         let contactExists = await contactModel.checkExists(currentID,contactID)
@@ -221,5 +234,6 @@ module.exports = {
     readMoreContactsRecived,
     removeRequestContactReceived,
     approveRequestContactReceived,
-    removeContact
+    removeContact,
+    searchFriends
 }

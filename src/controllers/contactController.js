@@ -9,6 +9,16 @@ let findUsersContact = async(req,res) => {
         return res.status(500).send(error);
     }
 }
+let searchFriends = async(req,res) => {
+    try {
+        let currentUserId = req.user._id;
+        let keyword = req.params.keyword;
+        let users = await contact.searchFriends(currentUserId,keyword);
+        res.render('main/groupChat/sections/searchFriends',{users:users} );
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+}
 let addNew = async (req,res) => {
     try {
         let currentId = req.user._id;
@@ -103,5 +113,6 @@ module.exports = {
     readMoreContactsRecived,
     removeRequestContactReceived,
     approveRequestContactReceived,
-    removeContact
+    removeContact,
+    searchFriends
 }

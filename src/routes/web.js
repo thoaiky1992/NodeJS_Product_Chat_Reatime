@@ -53,6 +53,7 @@ let initRoutes = (app) => {
     router.get('/contact/read-more-contacts',AuthController.checkLoggedIn,ContactController.readMoreContacts);
     router.get('/contact/read-more-contacts-sent',AuthController.checkLoggedIn,ContactController.readMoreContactsSent);
     router.get('/contact/read-more-contacts-recieved',AuthController.checkLoggedIn,ContactController.readMoreContactsRecived);
+    router.get('/contact/search-friends/:keyword',AuthController.checkLoggedIn,ContactController.searchFriends)
     
 
     router.get('/notification/read-more',AuthController.checkLoggedIn,notificationController.readMore);
