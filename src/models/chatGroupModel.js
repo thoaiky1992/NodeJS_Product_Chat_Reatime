@@ -14,6 +14,9 @@ const ChatGroupSchema = new Schema({
     deletedAt        : {type:Number,default:null},
 });
 ChatGroupSchema.statics = {
+    createNew(item){
+        return this.create(item);
+    },
     /**
      * get chat group items by userId and limit
      * @param {string} userId current userId

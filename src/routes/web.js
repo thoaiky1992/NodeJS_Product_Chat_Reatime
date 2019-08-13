@@ -3,6 +3,7 @@ import AuthController from '../controllers/auth.controller';
 import HomeController from '../controllers/home.controller';
 import UserController from '../controllers/userController';
 import ContactController from '../controllers/contactController';
+import groupChatController from '../controllers/groupChatController';
 import MessageController from '../controllers/messageController';
 import notificationController from '../controllers/notificationController';
 import {authValid,userValid}    from '../validation/index';
@@ -62,6 +63,8 @@ let initRoutes = (app) => {
     router.post('/message/add-new-text-emoji',AuthController.checkLoggedIn,MessageController.addNewTextEmoji);
     router.post('/message/add-new-image',AuthController.checkLoggedIn,MessageController.addNewImage);
     router.post('/message/add-new-attachment',AuthController.checkLoggedIn,MessageController.addNewAttachment);
+
+    router.post('/group-chat/add-new',AuthController.checkLoggedIn,groupChatController.addNewGroupChat);
     
     return app.use('/',router);
 }

@@ -48,7 +48,44 @@ function callSearchFriends(element){
     }
 }
 function callCreateGroupChat(){
-
+  $("#btn-create-group-chat").unbind('click').on('click',function(){
+    let countUsers = $("ul#friends-added").find("li");
+    if(countUsers.length < 2){
+      alertify.notify("Vui lòng chọn bạn bè để thêm vào nhóm , tối thiểu 2 người !!! ",'error',7);
+      return false;
+    }
+    let groupChatName = $('#input-name-group-chat').val();
+    if(groupChatName.length < 5 || groupChatName.length > 30){
+      alertify.notify("Vui lòng nhập cuộc trò chuyện , giới hạn 5-30 kí tự .  !!! ",'error',7);
+      return false;
+    }
+    let arrayIds = [];
+    $("ul#friends-added").find("li").each(function(index,item){
+      arrayIds.push({"userId" : $(item).data('uid')});
+    })
+    Swal.fire({
+      title: `Bạn có chắc chắn muốn tạo nhóm &nbsp; ${groupChatName} ?`,
+      type: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Xác Nhận',
+      cancelButtonText: 'Huỷ Bỏ'
+  }).then((result) => {
+      if(!result.value){
+          return false;
+      }
+      $.post('/group-chat/add-new',{
+        arrayIds : arrayIds,
+        groupChatName : groupChatName
+      },function(data){
+        console.log(data.groupChat)
+      })
+      .fail(function(response){
+        alertify.notify(response.responseText,'error',7);
+      });
+    })
+  })
 }
 $(function(){
     $('#input-search-friends-to-add-group-chat').bind('keypress',callSearchFriends);
