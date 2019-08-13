@@ -21,10 +21,12 @@ let searchFriends = (currentUserId,keyword) => {
         let friendIds = [];
         let friends = await contactModel.getFriends(currentUserId);
         friends.forEach((item) => {
-            friendIds.push(item.userId);
-            friendIds.push(item.contactId);
+            friendIds.push(item.userID);
+            friendIds.push(item.contactID);
         });
         friendIds = _.uniqBy(friendIds) ; // lọc những ID trùng trong mảng
+        friendIds = friendIds.filter(userId => userId != currentUserId);
+        let users = await userModel.findAllToAddGroupChat(friendIds,keyword);
         resolve(users);
     });
 }
