@@ -37,6 +37,12 @@ let chatTextEmoji = (io) => {
             
             
         });
+        socket.on('new-group-created',(data) => {
+            clients = pushSocketIdToArray(clients,data.groupChat._id,socket.id);
+        })
+        socket.on('member-received-group-chat',(data) => {
+            clients = pushSocketIdToArray(clients,data.groupChatId,socket.id);
+        });
         socket.on('disconnect',() => {
             // remove socketId when socket disconnected
             clients = removeSocketIdFromArray(clients,socket.request.user._id,socket);

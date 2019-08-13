@@ -9,7 +9,8 @@ import typingOff from './chat/typingOff';
 import chatImage from './chat/chatImage';
 import chatAttachment from './chat/chatAttachment.js';
 import userOnlineOffline from './status/userOnlineOffline';
-require('events').EventEmitter.defaultMaxListeners = 25;
+import newGroupChat from './group/newGroupChat';
+require('events').EventEmitter.defaultMaxListeners = 100;
 let initSockets = (io) => {
     addNewContact(io);
     removeRequestContactSent(io);
@@ -22,5 +23,6 @@ let initSockets = (io) => {
     chatImage(io);
     chatAttachment(io);
     userOnlineOffline(io);
+    newGroupChat(io);
 }
 module.exports = initSockets;  

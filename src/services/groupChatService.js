@@ -4,13 +4,13 @@ let addNewGroup = (currentuserId,arrayMemberIds,groupChatName) => {
     return new Promise(async(resolve,reject) => {
         try {
             // add current Id to array members
-            arrayMemberIds.unshift({userId : `${currentuserId}`});
-            arrayMemberIds = _.uniqBy(arrayMemberIds,'userId');
+            arrayMemberIds.unshift({userID : `${currentuserId}`});
+            arrayMemberIds = _.uniqBy(arrayMemberIds,'userID');
             let newGroupItem = {
                 name            : groupChatName,
                 userAmount      : arrayMemberIds.length,
                 messageAmount   : 0,
-                userId          : `${currentuserId}`,
+                userID          : `${currentuserId}`,
                 members         : arrayMemberIds
             }
             let newGroup = await chatGroupModel.createNew(newGroupItem);
