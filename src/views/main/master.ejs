@@ -17,14 +17,14 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body onload="spinLoaded()">
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="img01">
-    </div>
+    
     <!--Icon loader-->
     <div id="loader"></div>
-    
+    <!-- The Modal -->
+    <div id="myModalImageZoom" class="modal-image-zoom">
+        <span class="close">&times;</span>
+        <img class="modal-content-image-zoom" id="img01">
+    </div>
     <%- include('alert/alert')%>
     
     <!-- include('navbar'); -->
@@ -111,10 +111,10 @@
                 $('#change-password').show();
             })
             $(document).on('click','img',function(){
+                console.log($(this).attr('src'))
                 // Get the modal
-                var modal = document.getElementById("myModal");
+                var modal = document.getElementById("myModalImageZoom");
                 var modalImg = document.getElementById("img01");
-                var captionText = document.getElementById("caption");
                 modal.style.display = "block";
                 modalImg.src = $(this).attr('src');
                 // Get the <span> element that closes the modal
