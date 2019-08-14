@@ -1521,3 +1521,7 @@ label:focus,
     opacity: 0;
   }
 }
+.message-loading{
+  display: block;
+  margin: 0 auto;
+}

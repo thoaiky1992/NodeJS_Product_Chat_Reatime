@@ -7,7 +7,7 @@ import { app } from '../config/app';
 import _ from 'lodash';
 import fsExtra from 'fs-extra';
 const LIMIT_CONVERSATIONS = 5;
-const LIMIT_MESSAGES = 30; 
+const LIMIT_MESSAGES = 10; 
 /**
  * get all conversations 
  * @param {string} currentUserId 
@@ -308,10 +308,27 @@ let readMoreAllChat = (currentUserId,skipPersonal,SkipGroup) => {
         }
     })
 }
+let readMore = (currentUserId,skipMessage,targetId,chatInGroup) => {
+    return new Promise(async (resolve,reject) => {
+        try {
+            if(chatInGroup){
+                let getMessages = await  messageModel.model.readMoreMessageInGroup(targetId,skipMessage,LIMIT_MESSAGES);
+                getMessages = _.reverse(getMessages);
+                return resolve(getMessages)
+            }
+            let getMessages = await  messageModel.model.readMoreMessageInPersonal(currentUserId,targetId,skipMessage,LIMIT_MESSAGES);
+            getMessages = _.reverse(getMessages);
+            return resolve(getMessages);
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
 module.exports = {
     letAllConversationItems,
     addNewTextEmoji,
     addNewImage,
     addNewAttachment,
-    readMoreAllChat
+    readMoreAllChat,
+    readMore
 };

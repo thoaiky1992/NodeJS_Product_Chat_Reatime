@@ -140,9 +140,35 @@ let readMoreAllChat = async(req,res) => {
     }
 }
 
+let readMore = async(req,res) => {
+    try {
+        // get skipNumber from query param
+        let skipMessage = +(req.query.skipMessage);
+        let targetId = req.query.targetId;
+        let chatInGroup = (req.query.chatInGroup === true);
+        // get more item
+        let newMessages = await message.readMore(req.user._id,skipMessage,targetId,chatInGroup);
+        let dataToRender = {
+            newMessages : newMessages,
+            bufferToBase64 : bufferToBase64,
+            user : req.user
+        }
+        let rightSideData = await renderFile("src/views/main/readMoreMessages/_rightSide.ejs",dataToRender);
+        let imageModalData = await renderFile("src/views/main/readMoreMessages/_imageModal.ejs",dataToRender);
+        let attachmentModalData = await renderFile("src/views/main/readMoreMessages/_attachmentModal.ejs",dataToRender);
+        return res.status(200).send({
+            rightSideData:rightSideData,
+            imageModalData:imageModalData,
+            attachmentModalData:attachmentModalData
+        });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+}
 module.exports = {
     addNewTextEmoji,
     addNewImage,
     addNewAttachment,
-    readMoreAllChat
+    readMoreAllChat,
+    readMore
 }
