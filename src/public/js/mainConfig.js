@@ -205,7 +205,9 @@ $(document).ready(function() {
 
   //Thay đổi màn hình chát
   changeScreenChat();
-  $('ul.people').find("a")[0].click(); //$('ul.people').find("li").first().click();
+  if($('ul.people').find("a").length){
+    $('ul.people').find("a")[0].click(); //$('ul.people').find("li").first().click();
+  }
   
 });
 

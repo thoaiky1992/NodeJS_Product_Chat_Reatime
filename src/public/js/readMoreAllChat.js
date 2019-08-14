@@ -33,6 +33,8 @@ $(function(){
                 socket.emit('check-status');
                 $('#link-read-more-all-chat').css({'display':'inline-block'});
                 $('.red-more-all-chat-loader').css({'display':'none'});
+                //step 10 : call function readMoreMessages
+                readMoreMessages();
             })
         }, 1000);
         
