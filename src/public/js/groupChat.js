@@ -88,7 +88,7 @@ function callCreateGroupChat(){
           subGroupChatName = subGroupChatName.substr(0,11)
         }
         let leftSideData = `<a href="#uid_${data.groupChat._id}" class="room-chat" data-target="#to_${data.groupChat._id}">
-            <li class="person" data-chat="${data.groupChat._id}">
+            <li class="person" style="height:70px;" data-chat="${data.groupChat._id}">
                 <div class="left-avatar">
                     <img src="images/users/group-avatar-trungquandev.png" alt="">
                 </div>

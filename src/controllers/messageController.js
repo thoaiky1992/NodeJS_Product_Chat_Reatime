@@ -3,6 +3,11 @@ import { transErrors , transSuccess} from '../../lang/vi';
 import { app } from '../config/app';
 import multer from 'multer';
 import fsExtra from 'fs-extra';
+import ejs from 'ejs';
+import {promisify} from 'util';
+import {convertTimestampToHumanTime,lastItemofArray,bufferToBase64} from '../helpers/clientHelper';
+// Make ejs function renderFile available with async/await
+const renderFile = promisify(ejs.renderFile).bind(ejs);
 let StorageImageChat = multer.diskStorage({
     destination : (req,file,callback) => {
         callback(null,app.image_message_directory);
@@ -105,8 +110,39 @@ let addNewAttachment = (req,res) => {
         }
     });
 }
+
+let readMoreAllChat = async(req,res) => {
+    try {
+        // get skipNumber from query param
+        let skipPersonal = +(req.query.skipPersonal);
+        let skipGroup = +(req.query.skipGroup);
+        // get more item
+        let newAllConversations = await message.readMoreAllChat(req.user._id,skipPersonal,skipGroup);
+        let dataToRender = {
+            newAllConversations : newAllConversations,
+            convertTimestampToHumanTime : convertTimestampToHumanTime,
+            lastItemofArray : lastItemofArray,
+            bufferToBase64 : bufferToBase64,
+            user : req.user
+        }
+        let leftSideData = await renderFile("src/views/main/readMoreConversations/_leftSide.ejs",dataToRender);
+        let rightSideData = await renderFile("src/views/main/readMoreConversations/_rightSide.ejs",dataToRender);
+        let imageModalData = await renderFile("src/views/main/readMoreConversations/_imageModal.ejs",dataToRender);
+        let attachmentModalData = await renderFile("src/views/main/readMoreConversations/_attachmentModal.ejs",dataToRender);
+        return res.status(200).send({
+            leftSideData:leftSideData,
+            rightSideData:rightSideData,
+            imageModalData:imageModalData,
+            attachmentModalData:attachmentModalData
+        });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+}
+
 module.exports = {
     addNewTextEmoji,
     addNewImage,
-    addNewAttachment
+    addNewAttachment,
+    readMoreAllChat
 }
