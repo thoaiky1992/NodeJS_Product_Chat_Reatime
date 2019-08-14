@@ -23,8 +23,22 @@ function removeContact() {
                     if(data.success){
                         $('#contacts').find(`ul li[data-uid = ${targetID}]`).remove();
                         decreaseNumberNotiContact("count-contacts");
-                        // sau này làm chức năng CHAT thì sẽ xoá tiếp user ở phần CHAT
                         socket.emit('remove-contact',{contactId : targetID});
+                        //step 0 : check active
+                        let checkActive = $("#all-chat").find(`li[data-chat = ${targetID}]`).hasClass('active');
+                        //step 01 : remove leftSide.ejs
+                        $('#all-chat').find(`ul a[href="#uid_${targetID}"]`).remove();
+                        $('#user-chat').find(`ul a[href="#uid_${targetID}"]`).remove();
+                        //step 02 : remove rightSide.ejs
+                        $('#screen-chat').find(`div#to_${targetID}`).remove();
+                        //step 03 : remove imageModal
+                        $('body').find(`div#imagesModal_${targetID}`).remove();
+                        //step 04 : remove attachmentModal
+                        $('body').find(`div#attachmentsModal_${targetID}`).remove();
+                        //step 05 : click first conversation
+                        if(checkActive){
+                            $('ul.people').find("a")[0].click();
+                        }
                         
                     }
                 }
@@ -35,6 +49,21 @@ function removeContact() {
 socket.on('response-remove-contact',function(user){
     $('#contacts').find(`ul li[data-uid = ${user.id}]`).remove();
     decreaseNumberNotiContact("count-contacts");
+    //step 0 : check active
+    let checkActive = $("#all-chat").find(`li[data-chat = ${user.id}]`).hasClass('active');
+    // step 01 : remove leftSide.ejs
+    $('#all-chat').find(`ul a[href="#uid_${user.id}"]`).remove();
+    $('#user-chat').find(`ul a[href="#uid_${user.id}"]`).remove();
+    //step 02 : remove rightSide.ejs
+    $('#screen-chat').find(`div#to_${user.id}`).remove();
+    //step 03 : remove imageModal
+    $('body').find(`div#imagesModal_${user.id}`).remove();
+    //step 04 : remove attachmentModal
+    $('body').find(`div#attachmentsModal_${user.id}`).remove();
+    //step 05 : click first conversation
+    if(checkActive){
+        $('ul.people').find("a")[0].click();
+    }
 })
 $(document).ready(function(){
     removeContact();
