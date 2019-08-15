@@ -22,7 +22,7 @@
                     <a href="javascript:void(0)">&nbsp;</a>
                 </span>
                 <span class="chat-menu-right">
-                    <a href="javascript:void(0)" class="number-members" data-toggle="modal">
+                    <a href="#detailGroupModal" class="number-members" data-toggle="modal">
                         <span class="show-number-members"><%= conversation.userAmount %></span>
                         <i class="fa fa-user-o"></i>
                     </a>
@@ -91,9 +91,9 @@
                         <input type="file" id="attachment-chat-<%= conversation._id %>" name="my-attachment-chat" class="attachment-chat chat-in-group" data-chat="<%= conversation._id %>">
                         <i class="fa fa-paperclip"></i>
                     </label>
-                    <a href="#streamModal" id="video-chat" class="video-chat" data-chat="<%= conversation._id %>" data-toggle="modal">
+                    <!-- <a href="#streamModal" id="video-chat" class="video-chat" data-chat="<%= conversation._id %>" data-toggle="modal">
                         <i class="fa fa-video-camera"></i>
-                    </a>
+                    </a> -->
                     <input type="hidden" id="peer-id" value="">
                 </div>
             </div>

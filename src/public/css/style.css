@@ -198,7 +198,8 @@ label:focus,
 .contactPanel .user-remove-contact,
 .contactPanel .user-remove-request-contact-sent,
 .contactPanel .user-approve-request-contact-received,
-.contactPanel .user-remove-request-contact-received {
+.contactPanel .user-remove-request-contact-received,
+.contactPanel .chat-to-user {
   box-sizing: border-box;
   display: inline-flex;
   flex-shrink: 0;
@@ -347,7 +348,7 @@ label:focus,
 
 #search-results {
   display: none;
-  min-width: 100%;
+  min-width: 98%;
   float: right;
   position: absolute;
   margin-top: 10px;
@@ -1357,6 +1358,9 @@ label:focus,
     opacity: 0;
   }
 }
+.read-more-detail-group-chat{
+  clear: both;
+}
 .red-more-contacts-loader {
   display: none;
   position: relative;
@@ -1375,6 +1379,40 @@ label:focus,
   animation-delay: -0.5s;
 }
 @keyframes red-more-contacts-loader {
+  0% {
+    top: 28px;
+    left: 28px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: -1px;
+    left: -1px;
+    width: 58px;
+    height: 58px;
+    opacity: 0;
+  }
+}
+read-more-detail-group-chat
+.read-more-detail-group-chat {
+  display: none;
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin-top: 10px;
+}
+.read-more-detail-group-chat div {
+  position: absolute;
+  border: 4px solid #34495e;
+  opacity: 1;
+  border-radius: 50%;
+  animation: read-more-detail-group-chat 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.read-more-detail-group-chat div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+@keyframes read-more-detail-group-chat {
   0% {
     top: 28px;
     left: 28px;
@@ -1546,6 +1584,7 @@ label:focus,
   display: block;
   width: 80%;
   max-width: 700px;
+  max-height: 500px;
 }
 
 
@@ -1557,7 +1596,13 @@ label:focus,
   animation-name: zoom;
   animation-duration: 0.6s;
 }
-
+.icon-close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-right: -10px;
+  margin-top: -10px;
+}
 @-webkit-keyframes zoom {
   from {-webkit-transform:scale(0)} 
   to {-webkit-transform:scale(1)}
@@ -1598,4 +1643,21 @@ label:focus,
 }
 img:hover{
   cursor: pointer;
+}
+i{
+  cursor: pointer;
+}
+a:hover{
+  cursor: pointer;
+}
+.listUserInGroup{
+  float: left;
+  width: 30%;
+  list-style-type: none;
+  position: relative;
+  margin: 10px;
+  background: #fff;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 }

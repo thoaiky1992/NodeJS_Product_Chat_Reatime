@@ -244,6 +244,26 @@ let searchConversations = (currentUserId,keySearch) => {
         }
     })
 }
+let userInGroup = (targetId,currentUserId) => {
+    return new Promise(async(resolve,reject) => {
+        try {
+            let getGroupChat = await chatGroupModel.getChatGroupById(targetId);
+            let groupChat = getGroupChat.members.filter(item => {
+                if(currentUserId != item.userID){
+                    return item;
+                }
+            })
+            let getAllUserInGroup = groupChat.map(async(item) => {
+                let user = await userModel.getNormalUserDataById(item.userID);
+                return user;
+            })
+            let AllUserInGroup = await Promise.all(getAllUserInGroup)
+            resolve(AllUserInGroup);
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 module.exports = {
     findUsersContact,
     addNew,
@@ -261,5 +281,6 @@ module.exports = {
     approveRequestContactReceived,
     removeContact,
     searchFriends,
-    searchConversations
+    searchConversations,
+    userInGroup
 }

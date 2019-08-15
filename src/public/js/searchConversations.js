@@ -70,11 +70,23 @@ $(document).on('keyup','.searchBox',function(){
                     $('#search-results ul').append(`<li class="searchConversation" data-id="${item._id}">${item.username}</li>`);
                 }
             })
+            $('.search_content').niceScroll({
+                smoothscroll: true,
+                horizrailenabled: false,
+                cursorcolor: '#ECECEC',
+                cursorwidth: '7px',
+                scrollspeed: 50
+            });
         })  
     }
     else{
         $('#search-results').slideUp();
     }
+})
+$(document).on('click','.icon-close',function(){
+    $('#search-results').fadeOut(100);
+    $('#search-results ul').html('');
+    $('.searchBox').val('');
 })
 $(document).on('click','.searchConversation',function(){
     let targetId = $(this).data('id');

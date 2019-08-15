@@ -113,7 +113,15 @@ let approveRequestContactReceived = async (req,res) => {
         return res.status(500).send(error);
     }
 }
-
+let userInGroup = async (req,res) => {
+    try {
+        let targetId = req.query.targetId;
+        let getUsers = await contact.userInGroup(targetId,req.user._id);
+        return res.render('main/detailGroup/sections/userInGroup',{users:getUsers});
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+}
 
 module.exports = {
     findUsersContact,
@@ -126,5 +134,6 @@ module.exports = {
     approveRequestContactReceived,
     removeContact,
     searchFriends,
-    searchConversations
+    searchConversations,
+    userInGroup
 }
