@@ -1,6 +1,7 @@
 import contactModel from '../models/contactModel';
 import userModel from '../models/userModel';
 import notificationModel from '../models/notificationModel';
+import chatGroupModel from '../models/chatGroupModel';
 import _ from 'lodash';
 const LIMIT = 6;
 let findUsersContact = (currentUserId,keyword) => {
@@ -220,7 +221,29 @@ let approveRequestContactReceived = (currentID, contactID) => {
         resolve(true);
     })
 }
-
+let searchConversations = (currentUserId,keySearch) => {
+    return new Promise(async(resolve,reject) => {
+        try {
+            let conversationUserIds = await contactModel.getAllContacts(currentUserId);
+            let conversationUsersPromise = conversationUserIds.map( async(item) => {
+                if(item.contactID == currentUserId){
+                    let user = await userModel.getNormalUserDataById(item.userID);
+                    return user;
+                }
+                else{
+                    let user = await userModel.getNormalUserDataById(item.contactID);
+                    return user;
+                }
+            })
+            let conversationUsers = await Promise.all(conversationUsersPromise);
+            let conversationGroups = await chatGroupModel.getAllChatGroups(currentUserId);
+            let allConversations = conversationGroups.concat(conversationUsers)
+            resolve(allConversations);
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 module.exports = {
     findUsersContact,
     addNew,
@@ -237,5 +260,6 @@ module.exports = {
     removeRequestContactReceived,
     approveRequestContactReceived,
     removeContact,
-    searchFriends
+    searchFriends,
+    searchConversations
 }

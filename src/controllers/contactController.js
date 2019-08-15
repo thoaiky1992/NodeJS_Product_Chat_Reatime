@@ -1,4 +1,4 @@
-import {contact} from '../services/index';
+import { contact } from '../services/index';
 let findUsersContact = async(req,res) => {
     try {
         let currentUserId = req.user._id;
@@ -19,6 +19,17 @@ let searchFriends = async(req,res) => {
         return res.status(500).send(error);
     }
 }
+let searchConversations = async(req,res) => {
+    try {
+        let currentUserId = req.user._id;
+        let keySearch = req.query.keySearch;
+        let Conversations = await contact.searchConversations(currentUserId,keySearch);
+        res.status(200).send(Conversations)
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+}
+
 let addNew = async (req,res) => {
     try {
         let currentId = req.user._id;
@@ -114,5 +125,6 @@ module.exports = {
     removeRequestContactReceived,
     approveRequestContactReceived,
     removeContact,
-    searchFriends
+    searchFriends,
+    searchConversations
 }

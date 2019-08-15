@@ -27,6 +27,11 @@ ChatGroupSchema.statics = {
             "members" : { $elemMatch : {"userID" : userId}}
         }).sort({'updatedAt':-1}).limit(limit).exec();
     },
+    getAllChatGroups(userId){
+        return this.find({
+            "members" : { $elemMatch : {"userID" : userId}}
+        }).sort({'updatedAt':-1}).exec();
+    },
     getChatGroupById(id){
         return this.findById(id).exec();
     },

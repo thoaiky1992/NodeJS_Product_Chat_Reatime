@@ -76,7 +76,7 @@
     <script src="js/talkUser.js"></script>
     <script src="js/readMoreAllChat.js"></script>
     <script src="js/readMoreMessages.js"></script>
-    
+    <script src="js/searchConversations.js"></script>
     
     <!-- include('../groupChat/groupChatModal'); -->
     <%- include('notification/notificationModal')%> 
@@ -110,7 +110,7 @@
             $(document).on('click','.click_change_password',function(){
                 $('#change-password').show();
             })
-            $(document).on('click','img',function(){
+            $(document).on('click','.show-image-chat',function(){
                 console.log($(this).attr('src'))
                 // Get the modal
                 var modal = document.getElementById("myModalImageZoom");
