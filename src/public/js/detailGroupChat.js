@@ -13,6 +13,7 @@ $(document).ready(function(){
           cursorwidth: '7px',
           scrollspeed: 50
         });
+        $("#detailGroupModal").modal('show');
     })
   })
   $(document).on('click','.chat-to-user',function(){

@@ -282,12 +282,42 @@ let searchUserNotInGroup = (groupChatId,keySearch,currentUserId) => {
     return new Promise( async (resolve,reject) => {
         try {
             let getGroupChat = await chatGroupModel.getChatGroupById(groupChatId);
-            let arrayGroupChatId = [];
+            let getGroupChatConverArrayId = [];
             getGroupChat.members.forEach(item => {
-                arrayGroupChatId.push(item.userID);
+                getGroupChatConverArrayId.push(item.userID);
             });
-            let getUserNotInGroup = await userModel.findAllOrAddContact(arrayGroupChatId,keySearch);
-            resolve(getUserNotInGroup);
+            // lấy ra danh sách ID là bạn bè của curentUserID
+            let getAllContactByCurrentUser = await contactModel.getAllContacts(currentUserId);
+
+            
+            let getAllContactByCurrentUserConvertArrayId = [];
+            getAllContactByCurrentUser.forEach(item => {
+                getAllContactByCurrentUserConvertArrayId.push(item.userID);
+                getAllContactByCurrentUserConvertArrayId.push(item.contactID);
+            })
+
+
+            getAllContactByCurrentUserConvertArrayId = _.uniqBy(getAllContactByCurrentUserConvertArrayId);
+
+            let getUserNotInGroup = await userModel.findAllToAddGroupChat(getAllContactByCurrentUserConvertArrayId,keySearch);
+            let getUserNotInGroupConverArrayId = [];
+            getUserNotInGroup.forEach(item => {
+                getUserNotInGroupConverArrayId.push(item._id);
+            })
+            for(let i = 0 ; i < getGroupChatConverArrayId.length ; i++){
+                for(let j = 0 ; j < getUserNotInGroupConverArrayId.length ; j++){
+                    if(getUserNotInGroupConverArrayId[j] == getGroupChatConverArrayId[i]){
+                        getUserNotInGroupConverArrayId.splice(j,1);
+                        break;
+                    }
+                }
+            }
+            let usersNotInGroup = getUserNotInGroupConverArrayId.map(async (item) => {
+                let user = await userModel.getNormalUserDataById(item);
+                return user;
+            })
+            usersNotInGroup = await Promise.all(usersNotInGroup);
+            resolve(usersNotInGroup)
         } catch (error) {
             reject(error)
         }

@@ -43,6 +43,8 @@ function callSearchFriends(element){
 
             // Action hủy việc tạo nhóm trò chuyện
             cancelCreateGroup();
+            $('#input-search-friends-to-add-group-chat').val('');
+            
         })
     }
 }
@@ -200,6 +202,7 @@ function callCreateGroupChat(){
             </div>
         </div>`;
         $('body').append(attachmentModalData);
+        $('ul#group-chat-friends').html('');
         // Step 08 : Emit new group created
         socket.emit('new-group-created',{groupChat : data.groupChat});
         // Step 10 : update online
