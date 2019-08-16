@@ -17,6 +17,9 @@ ChatGroupSchema.statics = {
     createNew(item){
         return this.create(item);
     },
+    getChatGroupById(id){
+        return this.findOne({_id:id}).exec();
+    },
     /**
      * get chat group items by userId and limit
      * @param {string} userId current userId

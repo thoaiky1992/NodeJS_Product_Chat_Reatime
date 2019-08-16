@@ -278,6 +278,21 @@ let checkFriend = (currentId,targetId) => {
 
     })
 }
+let searchUserNotInGroup = (groupChatId,keySearch,currentUserId) => {
+    return new Promise( async (resolve,reject) => {
+        try {
+            let getGroupChat = await chatGroupModel.getChatGroupById(groupChatId);
+            let arrayGroupChatId = [];
+            getGroupChat.members.forEach(item => {
+                arrayGroupChatId.push(item.userID);
+            });
+            let getUserNotInGroup = await userModel.findAllOrAddContact(arrayGroupChatId,keySearch);
+            console.log(getUserNotInGroup)
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 module.exports = {
     findUsersContact,
     addNew,
@@ -297,5 +312,6 @@ module.exports = {
     searchFriends,
     searchConversations,
     userInGroup,
-    checkFriend
+    checkFriend,
+    searchUserNotInGroup
 }

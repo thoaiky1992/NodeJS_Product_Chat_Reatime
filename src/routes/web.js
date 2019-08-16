@@ -58,6 +58,7 @@ let initRoutes = (app) => {
     router.get('/contact/search-conversations',AuthController.checkLoggedIn,ContactController.searchConversations);
     router.get('/contact/user-in-group',AuthController.checkLoggedIn,ContactController.userInGroup);
     router.get('/contact/check-friend',AuthController.checkLoggedIn,ContactController.checkFriend);
+    router.get('/contact/search-user-not-in-group',AuthController.checkLoggedIn,ContactController.searchUserNotInGroup);
     
 
     router.get('/notification/read-more',AuthController.checkLoggedIn,notificationController.readMore);

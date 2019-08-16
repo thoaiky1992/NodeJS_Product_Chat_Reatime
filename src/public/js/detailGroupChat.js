@@ -2,6 +2,7 @@ $(document).ready(function(){
   $(document).on('click','.number-members',function(){
     let targetId = $(this).parent().parent().parent().data('chat');
     let groupName = $(this).parent().parent().parent().find('.name').text();
+    $('#detailGroupModal').attr('data-id',targetId);
     $('#detailGroupModal').find('.modal-title').html(`Group : ${groupName}`);
     $.get(`/contact/user-in-group?targetId=${targetId}`,function(data){
         $('.contactListUserInGroup').html(data);
@@ -92,4 +93,26 @@ $(document).ready(function(){
       })  
     }
   })
+  $(document).on('keyup','#input-find-users-add-to-group',function(e){
+    let keySearch = $(this).val();
+    let groupChatId = $('#detailGroupModal').attr('data-id'); 
+    if(e.which == 13){
+      if(keySearch == ''){
+        alertify.notify('Bạn chưa nhập username hoặc mail cần tìm kiếm !!!' , 'error',7)
+      }
+      else{
+        $.get(`/contact/search-user-not-in-group?keySearch=${keySearch}&groupChatId=${groupChatId}`,function(data){
+
+        })
+      }
+    }
+  });
+  $(document).on('click','#btn-find-users-not-in-group',function(){
+    let keySearch = $('#input-find-users-add-to-group').val();
+    let groupChatId = $('#detailGroupModal').attr('data-id'); 
+    if(keySearch == ''){
+      alertify.notify('Bạn chưa nhập username hoặc mail cần tìm kiếm !!!' , 'error',7)
+    }
+  })
+  
 })

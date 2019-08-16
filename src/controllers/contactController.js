@@ -132,6 +132,16 @@ let checkFriend = async (req,res) => {
         return res.status(500).send(error);
     }
 }
+let searchUserNotInGroup = async (req,res) => {
+    try {
+        let groupChatId = req.query.groupChatId;
+        let keySearch = req.query.keySearch;
+        let currentUserId = req.user._id
+        let getUsers = await contact.searchUserNotInGroup(groupChatId,keySearch,currentUserId);
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+} 
 module.exports = {
     findUsersContact,
     addNew,
@@ -145,5 +155,6 @@ module.exports = {
     searchFriends,
     searchConversations,
     userInGroup,
-    checkFriend
+    checkFriend,
+    searchUserNotInGroup
 }
