@@ -11,6 +11,17 @@ let addNewGroupChat = async (req,res) => {
         return res.status(500).send(error);
     }
 }
+let addUserToGroupChat = async (req,res) => {
+    try {
+        let targetId = req.query.targetId;
+        let groupChatId = req.query.groupChatId;
+        let addUserToGroupChat = await groupChat.addUserToGroupChat(targetId,groupChatId);
+        return res.status(200).send(addUserToGroupChat);
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+}
 module.exports = {
     addNewGroupChat,
+    addUserToGroupChat
 }

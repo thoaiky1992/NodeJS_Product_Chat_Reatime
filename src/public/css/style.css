@@ -199,7 +199,8 @@ label:focus,
 .contactPanel .user-remove-request-contact-sent,
 .contactPanel .user-approve-request-contact-received,
 .contactPanel .user-remove-request-contact-received,
-.contactPanel .chat-to-user {
+.contactPanel .chat-to-user,
+.contactPanel .add-to-group {
   box-sizing: border-box;
   display: inline-flex;
   flex-shrink: 0;
@@ -1653,6 +1654,17 @@ a:hover{
   cursor: pointer;
 }
 .listUserInGroup{
+  float: left;
+  width: 30%;
+  list-style-type: none;
+  position: relative;
+  margin: 10px;
+  background: #fff;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+}
+.listUserNotInGroup{
   float: left;
   width: 30%;
   list-style-type: none;

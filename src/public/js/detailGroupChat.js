@@ -6,6 +6,13 @@ $(document).ready(function(){
     $('#detailGroupModal').find('.modal-title').html(`Group : ${groupName}`);
     $.get(`/contact/user-in-group?targetId=${targetId}`,function(data){
         $('.contactListUserInGroup').html(data);
+        $(`#detailGroupModal[data-id = ${targetId}]`).niceScroll({
+          smoothscroll: true,
+          horizrailenabled: false,
+          cursorcolor: '#ECECEC',
+          cursorwidth: '7px',
+          scrollspeed: 50
+        });
     })
   })
   $(document).on('click','.chat-to-user',function(){
@@ -99,20 +106,96 @@ $(document).ready(function(){
     if(e.which == 13){
       if(keySearch == ''){
         alertify.notify('Bạn chưa nhập username hoặc mail cần tìm kiếm !!!' , 'error',7)
+        return;
       }
-      else{
-        $.get(`/contact/search-user-not-in-group?keySearch=${keySearch}&groupChatId=${groupChatId}`,function(data){
-
-        })
-      }
+      $.get(`/contact/search-user-not-in-group?keySearch=${keySearch}&groupChatId=${groupChatId}`,function(data){
+        $('.contactListUserInGroupAfterSearch').html(data);
+        $('#input-find-users-add-to-group').val('');
+      })
     }
   });
   $(document).on('click','#btn-find-users-not-in-group',function(){
     let keySearch = $('#input-find-users-add-to-group').val();
     let groupChatId = $('#detailGroupModal').attr('data-id'); 
     if(keySearch == ''){
-      alertify.notify('Bạn chưa nhập username hoặc mail cần tìm kiếm !!!' , 'error',7)
+      alertify.notify('Bạn chưa nhập username hoặc mail cần tìm kiếm !!!' , 'error',7);
+      return;
+    }
+    $.get(`/contact/search-user-not-in-group?keySearch=${keySearch}&groupChatId=${groupChatId}`,function(data){
+      $('.contactListUserInGroupAfterSearch').html(data);
+      $('#input-find-users-add-to-group').val('');
+    })
+  })
+  $(document).on('click','.add-to-group',function(){
+    let targetId = $(this).data('uid');
+    let userName = $(this).parent().find('.user-name>p').text().trim();
+    let groupChatId = $('#detailGroupModal').attr('data-id');
+    console.log(`${targetId} - ${groupChatId}`)
+    Swal.fire({
+      title: `Bạn có chắc chắn mún thêm "${userName}" vào Nhóm không ???`,     
+      type: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Xác Nhận',
+      cancelButtonText: 'Huỷ Bỏ'
+    }).then((result) => {
+      if(!result.value){
+          return false;
+      }
+      $.get(`/group-chat/add-user-to-group-chat?targetId=${targetId}&groupChatId=${groupChatId}`,function(data){
+        let newUserAddToGroup = `<li class="listUserInGroup" data-uid="${data._id}">
+            <div class="contactPanel">
+                <div class="user-avatar">
+                    <img src="images/users/${data.avatar}" alt="">
+                </div>
+                <div class="user-name">
+                    <p>
+                        ${data.username}
+                    </p>
+                </div>
+                <br>
+                <div class="user-address">
+                    <span>&nbsp ${data.address}</span>
+                </div>
+                <div class="chat-to-user" data-uid="${data._id}">
+                    Trò chuyện
+                </div>
+            </div>
+        </li>`;
+        $('.contactListUserInGroupAfterSearch').find(`li[data-uid = ${targetId}]`).remove();
+        $('#userInGroup').find('ul').append(newUserAddToGroup);
+        let totalUserInGroup = parseInt($('.show-number-members').html());
+        $('.show-number-members').html(totalUserInGroup+1);
+        socket.emit('add-new-user-to-group',{user : data ,groupChatId : groupChatId });
+      });
+    });
+  })
+  socket.on('response-add-new-user-to-group',function(data){
+    let ModalGroupId = $('#detailGroupModal').attr('data-id');
+    if(ModalGroupId == data.groupChatId){
+      let newUserAddToGroup = `<li class="listUserInGroup" data-uid="${data.user._id}">
+          <div class="contactPanel">
+              <div class="user-avatar">
+                  <img src="images/users/${data.user.avatar}" alt="">
+              </div>
+              <div class="user-name">
+                  <p>
+                      ${data.user.username}
+                  </p>
+              </div>
+              <br>
+              <div class="user-address">
+                  <span>&nbsp ${data.user.address}</span>
+              </div>
+              <div class="chat-to-user" data-uid="${data.user._id}">
+                  Trò chuyện
+              </div>
+          </div>
+      </li>`;
+      $('#userInGroup').find('ul').append(newUserAddToGroup);
+      let totalUserInGroup = parseInt($('.show-number-members').html());
+      $('.show-number-members').html(totalUserInGroup+1);
     }
   })
-  
 })

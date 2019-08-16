@@ -138,6 +138,7 @@ let searchUserNotInGroup = async (req,res) => {
         let keySearch = req.query.keySearch;
         let currentUserId = req.user._id
         let getUsers = await contact.searchUserNotInGroup(groupChatId,keySearch,currentUserId);
+        return res.render('main/detailGroup/sections/searchUserNotInGroup',{users:getUsers});
     } catch (error) {
         return res.status(500).send(error);
     }

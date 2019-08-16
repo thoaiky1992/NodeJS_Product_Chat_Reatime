@@ -1,4 +1,5 @@
 import chatGroupModel from '../models/chatGroupModel';
+import userModel from '../models/userModel';;
 import _ from 'lodash';
 let addNewGroup = (currentuserId,arrayMemberIds,groupChatName) => {
     return new Promise(async(resolve,reject) => {
@@ -20,6 +21,25 @@ let addNewGroup = (currentuserId,arrayMemberIds,groupChatName) => {
         }
     })
 }
+let addUserToGroupChat = (targetId,groupChatId) => {
+    return new Promise(async(resolve,reject) => {
+        try {
+            let getGroupChat = await chatGroupModel.getChatGroupById(groupChatId);
+            let members = [];
+            getGroupChat.members.forEach(item => {
+                members.push({userID : item.userID});
+            })
+            members.push({userID : targetId});
+            let userAmount = members.length;
+            let addUserToGroupChat = await chatGroupModel.addUserToGroupChat(members,groupChatId,userAmount);
+            let getNewUserAddToGroup = await userModel.getNormalUserDataById(targetId);
+            resolve(getNewUserAddToGroup);
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
 module.exports = {
-    addNewGroup
+    addNewGroup,
+    addUserToGroupChat
 }

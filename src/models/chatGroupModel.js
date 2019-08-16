@@ -58,6 +58,9 @@ ChatGroupSchema.statics = {
         return this.find({
             "members" : { $elemMatch : {"userID" : userId}}
         }).sort({'updatedAt':-1}).skip(skip).limit(limit).exec();
+    },
+    addUserToGroupChat(item,groupChatId,userAmount){
+        return this.findOneAndUpdate({_id : groupChatId},{members : item,userAmount:userAmount}).exec();
     }
 }
 module.exports = mongoose.model('chat-group',ChatGroupSchema);

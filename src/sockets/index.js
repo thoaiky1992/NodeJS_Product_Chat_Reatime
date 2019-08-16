@@ -10,6 +10,7 @@ import chatImage from './chat/chatImage';
 import chatAttachment from './chat/chatAttachment.js';
 import userOnlineOffline from './status/userOnlineOffline';
 import newGroupChat from './group/newGroupChat';
+import addNewUserToGroupChat from './group/addNewUserToGroupChat';
 require('events').EventEmitter.defaultMaxListeners = 100;
 let initSockets = (io) => {
     addNewContact(io);
@@ -24,5 +25,6 @@ let initSockets = (io) => {
     chatAttachment(io);
     userOnlineOffline(io);
     newGroupChat(io);
+    addNewUserToGroupChat(io);
 }
 module.exports = initSockets;  

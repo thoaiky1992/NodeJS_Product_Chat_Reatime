@@ -287,7 +287,7 @@ let searchUserNotInGroup = (groupChatId,keySearch,currentUserId) => {
                 arrayGroupChatId.push(item.userID);
             });
             let getUserNotInGroup = await userModel.findAllOrAddContact(arrayGroupChatId,keySearch);
-            console.log(getUserNotInGroup)
+            resolve(getUserNotInGroup);
         } catch (error) {
             reject(error)
         }
