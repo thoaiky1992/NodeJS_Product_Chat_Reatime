@@ -706,7 +706,9 @@ label:focus,
   background-color: #fff;
   list-style: none;
 }
-
+.person{
+  height: 75px;
+}
 .left .people .person:after {
   position: absolute;
   bottom: 0;

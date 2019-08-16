@@ -26,12 +26,18 @@ ContactSchema.statics = {
     checkExists(userId,contactId){
         return this.findOne({
             $or : [
-                { $and : [
-                    {"userID":userId},{"contactID":contactId}
-                ]},
-                {$and : [
-                    {"userID":contactId},{"contactID":userId}
-                ]}
+                { 
+                    $and : [
+                        {"userID":userId},
+                        {"contactID":contactId}
+                    ]
+                },
+                {
+                    $and : [
+                        {"userID":contactId},
+                        {"contactID":userId}
+                    ]
+                }
             ]
         }).exec();
     },

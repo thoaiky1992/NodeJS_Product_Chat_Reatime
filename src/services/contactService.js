@@ -264,6 +264,20 @@ let userInGroup = (targetId,currentUserId) => {
         }
     })
 }
+let checkFriend = (currentId,targetId) => {
+    return new Promise(async(resolve,reject) => {
+        try {
+            let getUser = await contactModel.checkExists(currentId,targetId);
+            if(getUser){
+                return resolve(true);
+            }
+            return resolve(false);
+        } catch (error) {
+            reject(error)
+        }
+
+    })
+}
 module.exports = {
     findUsersContact,
     addNew,
@@ -282,5 +296,6 @@ module.exports = {
     removeContact,
     searchFriends,
     searchConversations,
-    userInGroup
+    userInGroup,
+    checkFriend
 }

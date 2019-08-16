@@ -122,7 +122,16 @@ let userInGroup = async (req,res) => {
         return res.status(500).send(error);
     }
 }
-
+let checkFriend = async (req,res) => {
+    try {
+        let currentId = req.user._id;
+        let targetId = req.query.targetId;
+        let isCheckFriend = await contact.checkFriend(currentId,targetId);
+        res.status(200).send(isCheckFriend);
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+}
 module.exports = {
     findUsersContact,
     addNew,
@@ -135,5 +144,6 @@ module.exports = {
     removeContact,
     searchFriends,
     searchConversations,
-    userInGroup
+    userInGroup,
+    checkFriend
 }
