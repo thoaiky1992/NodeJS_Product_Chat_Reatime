@@ -21,7 +21,18 @@ let addUserToGroupChat = async (req,res) => {
         return res.status(500).send(error);
     }
 }
+let leaveGroup = async (req,res) => {
+    try {
+        let groupChatId = req.query.groupChatId ;
+        let currentUserId = req.user._id;
+        let leaveGroup = await groupChat.leaveGroup(currentUserId,groupChatId);
+        return res.status(200).send(leaveGroup);
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+}
 module.exports = {
     addNewGroupChat,
-    addUserToGroupChat
+    addUserToGroupChat,
+    leaveGroup
 }

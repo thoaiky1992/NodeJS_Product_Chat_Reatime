@@ -10,4 +10,4 @@ $(function(){
         $(`.person[data-chat = ${targetId}]`).trigger('kysmile.moveConversationToTheTop');
         $('ul.people').find("a")[0].click();
     })
-})
+})  

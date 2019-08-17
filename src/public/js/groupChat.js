@@ -344,4 +344,5 @@ $(function(){
       // Step 10 : update online
       socket.emit('check-status');
     })
+    
 })

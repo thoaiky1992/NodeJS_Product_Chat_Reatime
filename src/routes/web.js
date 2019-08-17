@@ -72,6 +72,7 @@ let initRoutes = (app) => {
 
     router.post('/group-chat/add-new',AuthController.checkLoggedIn,groupChatController.addNewGroupChat);
     router.get('/group-chat/add-user-to-group-chat',AuthController.checkLoggedIn,groupChatController.addUserToGroupChat);
+    router.get('/group-chat/leave-group',AuthController.checkLoggedIn,groupChatController.leaveGroup);
     
     return app.use('/',router);
 }

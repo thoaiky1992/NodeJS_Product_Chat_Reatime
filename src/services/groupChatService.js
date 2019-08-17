@@ -39,7 +39,29 @@ let addUserToGroupChat = (targetId,groupChatId) => {
         }
     })
 }
+let leaveGroup = (currentUserId,groupChatId) => {
+    return new Promise( async (resolve,reject) => {
+        try {
+            let getGroupChat = await chatGroupModel.getChatGroupById(groupChatId);
+            let getGroupChatConvertArrayID = [];
+            getGroupChat.members.forEach(item => {
+                getGroupChatConvertArrayID.push({userID : item.userID});
+            });
+            for(let i = 0 ; i < getGroupChatConvertArrayID.length ; i++){
+                if(getGroupChatConvertArrayID[i].userID == currentUserId){
+                    getGroupChatConvertArrayID.splice(i,1);
+                }
+            }
+            let userAmount = parseInt(getGroupChat.userAmount) - 1;
+            let leaveGroup = await chatGroupModel.updateMemberInGroupChat(groupChatId,getGroupChatConvertArrayID,userAmount)
+            resolve(true);
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
 module.exports = {
     addNewGroup,
-    addUserToGroupChat
+    addUserToGroupChat,
+    leaveGroup
 }

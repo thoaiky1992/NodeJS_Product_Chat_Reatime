@@ -61,6 +61,10 @@ ChatGroupSchema.statics = {
     },
     addUserToGroupChat(item,groupChatId,userAmount){
         return this.findOneAndUpdate({_id : groupChatId},{members : item,userAmount:userAmount}).exec();
+    },
+    updateMemberInGroupChat(groupChatId,members,userAmount){
+        return this.findOneAndUpdate({_id : groupChatId},{members : members,userAmount:userAmount}).exec();
     }
+    
 }
 module.exports = mongoose.model('chat-group',ChatGroupSchema);

@@ -2,6 +2,7 @@ $(document).ready(function(){
   $(document).on('click','.number-members',function(){
     let targetId = $(this).parent().parent().parent().data('chat');
     let groupName = $(this).parent().parent().parent().find('.name').text();
+    $('.contactListUserInGroup').html('');
     $('#detailGroupModal').attr('data-id',targetId);
     $('#detailGroupModal').find('.modal-title').html(`Group : ${groupName}`);
     $.get(`/contact/user-in-group?targetId=${targetId}`,function(data){
@@ -198,5 +199,30 @@ $(document).ready(function(){
       let totalUserInGroup = parseInt($('.show-number-members').html());
       $('.show-number-members').html(totalUserInGroup+1);
     }
+  })
+  $(document).on('click','#leave-group',function(){
+    let groupChatId = $('#detailGroupModal').attr('data-id');
+    Swal.fire({
+      title: `Bạn có chắc chắn muốn rời khỏi nhóm không ???`,     
+      type: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Xác Nhận',
+      cancelButtonText: 'Huỷ Bỏ'
+    }).then((result) => { 
+      if(!result.value){
+        return false;
+      }
+      $.get(`/group-chat/leave-group?groupChatId=${groupChatId}`,function(data){
+        if(data){
+          $('#all-chat').find(`ul>a[href = "#uid_${groupChatId}"]`).remove();
+          if($('ul.people').find("a").length){
+            $('#detailGroupModal').modal('hide');
+            $('ul.people').find("a")[0].click();
+          }
+        }
+      })
+    }); 
   })
 })
