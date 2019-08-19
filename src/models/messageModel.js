@@ -61,6 +61,12 @@ MessageSchema.statics = {
     getMessageInGroup(receiverId , limit){
         return this.find({ "receiverId" : receiverId}).sort({"createdAt" : -1}).limit(limit).exec();
     },
+    getAllMessageInGroup(receiverId){
+        return this.find({ "receiverId" : receiverId}).sort({"createdAt" : -1}).skip(0).limit(1).exec();
+    },
+    getAllMessageGroup(receiverId){
+        return this.find({ "receiverId" : receiverId}).sort({"createdAt" : -1}).exec();
+    },
     readMoreMessageInPersonal(senderId , receiverId , skip , limit){
         return this.find({
             $or : [

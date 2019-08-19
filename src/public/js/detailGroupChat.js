@@ -146,21 +146,21 @@ $(document).ready(function(){
           return false;
       }
       $.get(`/group-chat/add-user-to-group-chat?targetId=${targetId}&groupChatId=${groupChatId}`,function(data){
-        let newUserAddToGroup = `<li class="listUserInGroup" data-uid="${data._id}">
+        let newUserAddToGroup = `<li class="listUserInGroup" data-uid="${data.addUserToGroupChat._id}">
             <div class="contactPanel">
                 <div class="user-avatar">
-                    <img src="images/users/${data.avatar}" alt="">
+                    <img src="images/users/${data.addUserToGroupChat.avatar}" alt="">
                 </div>
                 <div class="user-name">
                     <p>
-                        ${data.username}
+                        ${data.addUserToGroupChat.username}
                     </p>
                 </div>
                 <br>
                 <div class="user-address">
-                    <span>&nbsp ${data.address}</span>
+                    <span>&nbsp ${data.addUserToGroupChat.address}</span>
                 </div>
-                <div class="chat-to-user" data-uid="${data._id}">
+                <div class="chat-to-user" data-uid="${data.addUserToGroupChat._id}">
                     Trò chuyện
                 </div>
             </div>
@@ -169,7 +169,7 @@ $(document).ready(function(){
         $('#userInGroup').find('ul').append(newUserAddToGroup);
         let totalUserInGroup = parseInt($('.show-number-members').html());
         $('.show-number-members').html(totalUserInGroup+1);
-        socket.emit('add-new-user-to-group',{user : data ,groupChatId : groupChatId });
+        socket.emit('add-new-user-to-group',{user : data.addUserToGroupChat ,groupChatId : groupChatId , rightSide : data.rightSide });
       });
     });
   })
@@ -199,6 +199,68 @@ $(document).ready(function(){
       let totalUserInGroup = parseInt($('.show-number-members').html());
       $('.show-number-members').html(totalUserInGroup+1);
     }
+    // Step 02 : handle leftside.ejs
+    let subGroupChatName = data.groupChat.name;
+    if(subGroupChatName.length > 15){
+      subGroupChatName = subGroupChatName.substr(0,11)
+    }
+    let leftSideData = `<a href="#uid_${data.groupChat._id}" class="room-chat" data-target="#to_${data.groupChat._id}">
+        <li class="person" style="height:70px;" data-chat="${data.groupChat._id}">
+            <div class="left-avatar">
+                <img src="images/users/group-avatar-trungquandev.png" alt="">
+            </div>
+            <span class="name">
+                ${subGroupChatName.length < 10 ?  `${subGroupChatName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...` : `${subGroupChatName}...`}
+            </span>
+            <span class="time">
+              ${moment(data.message.createdAt).locale("vi").startOf("seconds").fromNow()}
+            </span>
+            <span class="preview convert-emoji">
+              ${emojione.toImage(data.message[0].text)}
+            </span>
+        </li>
+    </a>`;
+    $('#all-chat').find("ul").prepend(leftSideData);
+    $('#group-chat').find("ul").prepend(leftSideData);
+    // Step 03 : hanle rightSide.ejs
+    $('#screen-chat').prepend(`${emojione.toImage(data.rightSide)}`);
+    // Step 04 : call function changeScreenChat
+    changeScreenChat();
+    // Step 05 : handle imageModal
+    let imageModalData = `<div class="modal fade" id="imagesModal_${data.groupChat._id}" role="dialog">
+          <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Những hình ảnh trong cuộc trò chuyện . </h4>
+                  </div>
+                  <div class="modal-body">
+                      <div class="all-images" style="visibility: hidden;">
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>`;
+      $('body').append(imageModalData);
+      // Step 06 : call function gridPhotos
+      gridPhotos(5);
+      // Step 07 : handle attachmentModal
+      let attachmentModalData = `<div class="modal fade" id="attachmentsModal_${data.groupChat._id}" role="dialog">
+          <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">All Attachs in this conversation.</h4>
+                  </div>
+                  <div class="modal-body">
+                      <ul class="list-attachments">
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>`;
+    $('body').append(attachmentModalData);
+    readMoreMessages();
   })
   $(document).on('click','#leave-group',function(){
     let groupChatId = $('#detailGroupModal').attr('data-id');

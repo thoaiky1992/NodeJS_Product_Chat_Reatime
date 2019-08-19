@@ -1,4 +1,10 @@
 import {groupChat} from '../services/index';
+import ejs from 'ejs';
+import {promisify} from 'util';
+import { bufferToBase64} from '../helpers/clientHelper';
+import _ from 'lodash';
+// Make ejs function renderFile available with async/await
+const renderFile = promisify(ejs.renderFile).bind(ejs);
 let addNewGroupChat = async (req,res) => {
     try {
         let currentUserId = req.user._id;
@@ -16,7 +22,15 @@ let addUserToGroupChat = async (req,res) => {
         let targetId = req.query.targetId;
         let groupChatId = req.query.groupChatId;
         let addUserToGroupChat = await groupChat.addUserToGroupChat(targetId,groupChatId);
-        return res.status(200).send(addUserToGroupChat);
+        let allMessageGroup = await groupChat.allConversationWithMessage(groupChatId);
+        allMessageGroup = _.reverse(allMessageGroup);
+        let rightSide = await renderFile("src/views/main/detailGroup/sections/rightSide.ejs",{
+            allMessageGroup:allMessageGroup,
+            groupChatId:groupChatId,
+            bufferToBase64:bufferToBase64,
+            user : req.user
+        });
+        return res.status(200).send({addUserToGroupChat:addUserToGroupChat,rightSide:rightSide});
     } catch (error) {
         return res.status(500).send(error);
     }

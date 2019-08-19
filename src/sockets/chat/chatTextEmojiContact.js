@@ -33,10 +33,10 @@ let chatTextEmoji = (io) => {
                     emitNotifyToArray(clients,data.contactId,io,'response-chat-text-emoji',response);
                 }
             }
-            
-            
-            
         });
+        socket.on('add-new-user-to-group', async function(data){
+            clients[data.groupChatId].push(clients[data.user._id]);
+        })
         socket.on('new-group-created',(data) => {
             clients = pushSocketIdToArray(clients,data.groupChat._id,socket.id);
         })

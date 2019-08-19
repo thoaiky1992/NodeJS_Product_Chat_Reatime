@@ -1,5 +1,6 @@
 import chatGroupModel from '../models/chatGroupModel';
 import userModel from '../models/userModel';;
+import messageModel from '../models/messageModel';
 import _ from 'lodash';
 let addNewGroup = (currentuserId,arrayMemberIds,groupChatName) => {
     return new Promise(async(resolve,reject) => {
@@ -39,6 +40,16 @@ let addUserToGroupChat = (targetId,groupChatId) => {
         }
     })
 }
+let allConversationWithMessage = (groupChatId) => {
+    return new Promise(async(resolve,reject) => {
+        try {
+            let allConversationWithMessage = await messageModel.model.getAllMessageGroup(groupChatId);
+            resolve(allConversationWithMessage);
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
 let leaveGroup = (currentUserId,groupChatId) => {
     return new Promise( async (resolve,reject) => {
         try {
@@ -63,5 +74,6 @@ let leaveGroup = (currentUserId,groupChatId) => {
 module.exports = {
     addNewGroup,
     addUserToGroupChat,
-    leaveGroup
+    leaveGroup,
+    allConversationWithMessage
 }
