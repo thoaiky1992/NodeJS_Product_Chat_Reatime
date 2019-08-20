@@ -132,7 +132,6 @@ $(document).ready(function(){
     let targetId = $(this).data('uid');
     let userName = $(this).parent().find('.user-name>p').text().trim();
     let groupChatId = $('#detailGroupModal').attr('data-id');
-    console.log(`${targetId} - ${groupChatId}`)
     Swal.fire({
       title: `Bạn có chắc chắn mún thêm "${userName}" vào Nhóm không ???`,     
       type: 'info',
@@ -207,9 +206,9 @@ $(document).ready(function(){
     let leftSideData = `<a href="#uid_${data.groupChat._id}" class="room-chat" data-target="#to_${data.groupChat._id}">
         <li class="person" style="height:70px;" data-chat="${data.groupChat._id}">
             <div class="left-avatar">
-                <img src="images/users/group-avatar-trungquandev.png" alt="">
+                <img src="images/users/group-default.png" class="avatar-online" alt="">
             </div>
-            <span class="name">
+            <span class="name" style="font-weight:bold;">
                 ${subGroupChatName.length < 10 ?  `${subGroupChatName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...` : `${subGroupChatName}...`}
             </span>
             <span class="time">
@@ -282,9 +281,16 @@ $(document).ready(function(){
           if($('ul.people').find("a").length){
             $('#detailGroupModal').modal('hide');
             $('ul.people').find("a")[0].click();
+            socket.emit('leave-group',groupChatId);
           }
         }
       })
     }); 
+  })
+  socket.on('response-leave-group',function(data){
+    let memberInGroup = parseInt($(`.right[data-chat = ${data}]`).find("span.show-number-members").html().trim());
+    memberInGroup -= 1;
+    console.log(memberInGroup)
+    $(`.right[data-chat = ${data}]`).find("span.show-number-members").html(memberInGroup);
   })
 })

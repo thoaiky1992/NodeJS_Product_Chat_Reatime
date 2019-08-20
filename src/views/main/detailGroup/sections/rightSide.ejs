@@ -1,6 +1,6 @@
 <div class="right tab-pane " data-chat="<%= groupChatId %>" id="to_<%= groupChatId %>">
     <div class="top">
-        <span>To: <span class="name"></span></span>
+        <span>To: <span class="name"><%= getGroup.name %></span></span>
         <span class="chat-menu-right">
             <a href="#attachmentsModal_<%= groupChatId %>" class="show-attachments" data-toggle="modal">
                 Tệp đính kèm
@@ -21,7 +21,7 @@
         </span>
         <span class="chat-menu-right">
             <a href="#detailGroupModal" class="number-members" data-toggle="modal">
-                <span class="show-number-members"></span>
+                <span class="show-number-members"><%= getGroup.members.length %></span>
                 <i class="fa fa-user-o"></i>
             </a>
         </span>

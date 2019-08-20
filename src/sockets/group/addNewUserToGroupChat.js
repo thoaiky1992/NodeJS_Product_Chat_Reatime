@@ -2,6 +2,7 @@ import {pushSocketIdToArray,removeSocketIdFromArray,emitNotifyToArray} from '../
 import userModel from '../../models/userModel';
 import groupChatModel from '../../models/chatGroupModel';
 import messageModel from '../../models/messageModel';
+import _ from 'lodash';
 /**
  * 
  * @param  io from socket.io lib 
@@ -25,13 +26,23 @@ let addNewUserToGroupChat = (io) => {
             let getAllMessageInGroup = await messageModel.model.getAllMessageInGroup(data.groupChatId);
             data.groupChat = groupChat;
             data.message = getAllMessageInGroup;
-            clients[data.groupChatId].push(clients[data.user._id]);
-            
-            if(clients[data.groupChatId]){
-                clients[data.groupChatId].forEach(socketId => {
-                    if(socketId != socket.id){
-                        io.sockets.connected[socketId].emit('response-add-new-user-to-group',data)
-                    }
+            clients[data.groupChatId].push(clients[data.user._id][0]);
+            clients[data.groupChatId] = _.uniqBy(clients[data.groupChatId]);
+            for(let i = 0 ;  i <  clients[data.groupChatId].length ; i++){
+                if(clients[data.groupChatId][i] != socket.id){
+                    io.to(clients[data.groupChatId][i]).emit('response-add-new-user-to-group',data);
+                }
+            }
+        })
+        socket.on('leave-group',function(data){
+            for(let i = 0 ; i < clients[data].length ; i++){
+                if(clients[data][i] == socket.id){
+                    clients[data].splice(i,1);
+                }
+            }
+            if(clients[data]){
+                clients[data].forEach(socketId => {
+                    io.to(socketId).emit('response-leave-group',data);
                 });
             }
         })

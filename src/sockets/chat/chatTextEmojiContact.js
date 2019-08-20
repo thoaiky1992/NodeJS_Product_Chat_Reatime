@@ -11,6 +11,13 @@ let chatTextEmoji = (io) => {
         socket.request.user.chatGroupIds.forEach(group => {
             clients = pushSocketIdToArray(clients,group._id,socket.id);
         })
+        socket.on('leave-group',function(data){
+            for(let i = 0 ; i < clients[data] ; i++){
+                if(clients[data][i] == socket.id){
+                    lients[data].splice(i,1);
+                }
+            }
+        })
         socket.on('chat-text-emoji',(data) => {
             if(data.groupId){
                 let response = {
@@ -35,7 +42,7 @@ let chatTextEmoji = (io) => {
             }
         });
         socket.on('add-new-user-to-group', async function(data){
-            clients[data.groupChatId].push(clients[data.user._id]);
+            clients[data.groupChatId].push(clients[data.user._id][0]);
         })
         socket.on('new-group-created',(data) => {
             clients = pushSocketIdToArray(clients,data.groupChat._id,socket.id);

@@ -92,7 +92,7 @@ function callCreateGroupChat(){
         let leftSideData = `<a href="#uid_${data.groupChat._id}" class="room-chat" data-target="#to_${data.groupChat._id}">
             <li class="person" style="height:70px;" data-chat="${data.groupChat._id}">
                 <div class="left-avatar">
-                    <img src="images/users/group-avatar-trungquandev.png" alt="">
+                    <img src="images/users/group-default.png" alt="">
                 </div>
                 <span class="name">
                     ${subGroupChatName}<span>...</span>
@@ -228,7 +228,7 @@ $(function(){
       let leftSideData = `<a href="#uid_${response.groupChat._id}" class="room-chat" data-target="#to_${response.groupChat._id}">
           <li class="person" data-chat="${response.groupChat._id}">
               <div class="left-avatar">
-                  <img src="images/users/group-avatar-trungquandev.png" alt="">
+                  <img src="images/users/group-default.png" alt="">
               </div>
               <span class="name">
                   ${subGroupChatName}<span>...</span>

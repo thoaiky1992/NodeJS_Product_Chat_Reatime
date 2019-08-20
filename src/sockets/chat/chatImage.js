@@ -18,7 +18,14 @@ let chatImage = (io) => {
             clients = pushSocketIdToArray(clients,data.groupChatId,socket.id);
         });
         socket.on('add-new-user-to-group', async function(data){
-            clients[data.groupChatId].push(clients[data.user._id]);
+            clients[data.groupChatId].push(clients[data.user._id][0]);
+        })
+        socket.on('leave-group',function(data){
+            for(let i = 0 ; i < clients[data] ; i++){
+                if(clients[data][i] == socket.id){
+                    lients[data].splice(i,1);
+                }
+            }
         })
         socket.on('chat-image',(data) => {
             if(data.groupId){

@@ -71,9 +71,20 @@ let leaveGroup = (currentUserId,groupChatId) => {
         }
     })
 }
+let getGroup = (groupChatId) => {
+    return new Promise( async(resolve,reject) => {
+        try {
+            let getGroup = await chatGroupModel.getChatGroupById(groupChatId);
+            resolve(getGroup)
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
 module.exports = {
     addNewGroup,
     addUserToGroupChat,
     leaveGroup,
-    allConversationWithMessage
+    allConversationWithMessage,
+    getGroup
 }

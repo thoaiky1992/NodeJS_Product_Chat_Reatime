@@ -12,6 +12,13 @@ let userOnlineOffline = (io) => {
         socket.request.user.chatGroupIds.forEach(group => {
             clients = pushSocketIdToArray(clients,group._id,socket.id);
         })
+        socket.on('leave-group',function(data){
+            for(let i = 0 ; i < clients[data] ; i++){
+                if(clients[data][i] == socket.id){
+                    lients[data].splice(i,1);
+                }
+            }
+        })
         socket.on('new-group-created',(data) => {
             clients = pushSocketIdToArray(clients,data.groupChat._id,socket.id);
         })

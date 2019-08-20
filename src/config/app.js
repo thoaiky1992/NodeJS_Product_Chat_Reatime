@@ -4,7 +4,7 @@ export const app = {
     attachment_message_directory : "src/public/images/chat/message",
     avatar_type : ['image/png','image/jpg','image/jpeg'],
     avatar_limit_size : 1048576,
-    general_avatar_group_chat : "group-avatar-trungquandev.png",
+    general_avatar_group_chat : "group-defaut.png",
     image_message_type : ['image/png','image/jpg','image/jpeg'],
     image_message_limit_size : 1048576,
     attachment_message_limit_size : 1048576,

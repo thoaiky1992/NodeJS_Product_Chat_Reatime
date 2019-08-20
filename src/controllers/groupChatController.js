@@ -21,14 +21,17 @@ let addUserToGroupChat = async (req,res) => {
     try {
         let targetId = req.query.targetId;
         let groupChatId = req.query.groupChatId;
+        
         let addUserToGroupChat = await groupChat.addUserToGroupChat(targetId,groupChatId);
         let allMessageGroup = await groupChat.allConversationWithMessage(groupChatId);
         allMessageGroup = _.reverse(allMessageGroup);
+        let getGroup = await groupChat.getGroup(groupChatId);
         let rightSide = await renderFile("src/views/main/detailGroup/sections/rightSide.ejs",{
             allMessageGroup:allMessageGroup,
             groupChatId:groupChatId,
             bufferToBase64:bufferToBase64,
-            user : req.user
+            user : req.user,
+            getGroup : getGroup
         });
         return res.status(200).send({addUserToGroupChat:addUserToGroupChat,rightSide:rightSide});
     } catch (error) {
