@@ -166,6 +166,33 @@ let readMoreUserChat = async(req,res) => {
         res.status(500).send(error);
     }
 }
+let readMoreGroupChat = async(req,res) => {
+    try {
+        // get skipGroup from query param
+        let skipGroup = +(req.query.skipGroup);
+        // get more item
+        let newGroupConversations = await message.readMoreGroupChat(req.user._id,skipGroup);
+        let dataToRender = {
+            newGroupConversations : newGroupConversations,
+            convertTimestampToHumanTime : convertTimestampToHumanTime,
+            lastItemofArray : lastItemofArray,
+            bufferToBase64 : bufferToBase64,
+            user : req.user
+        }
+        let leftSideData = await renderFile("src/views/main/readMoreGroupConversations/_leftSide.ejs",dataToRender);
+        let rightSideData = await renderFile("src/views/main/readMoreGroupConversations/_rightSide.ejs",dataToRender);
+        let imageModalData = await renderFile("src/views/main/readMoreGroupConversations/_imageModal.ejs",dataToRender);
+        let attachmentModalData = await renderFile("src/views/main/readMoreGroupConversations/_attachmentModal.ejs",dataToRender);
+        return res.status(200).send({
+            leftSideData:leftSideData,
+            rightSideData:rightSideData,
+            imageModalData:imageModalData,
+            attachmentModalData:attachmentModalData
+        });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+}
 let readMore = async(req,res) => {
     try {
         // get skipNumber from query param
@@ -197,5 +224,6 @@ module.exports = {
     addNewAttachment,
     readMoreAllChat,
     readMore,
-    readMoreUserChat
+    readMoreUserChat,
+    readMoreGroupChat
 }

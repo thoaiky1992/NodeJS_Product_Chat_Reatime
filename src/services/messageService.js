@@ -6,7 +6,7 @@ import { transErrors } from '../../lang/vi';
 import { app } from '../config/app';
 import _ from 'lodash';
 import fsExtra from 'fs-extra';
-const LIMIT_CONVERSATIONS = 1;
+const LIMIT_CONVERSATIONS = 5;
 const LIMIT_MESSAGES = 10; 
 /**
  * get all conversations 
@@ -346,6 +346,31 @@ let readMoreUserChat = (currentUserId,skipPersonal) => {
         }
     })
 }
+let readMoreGroupChat = (currentUserId,SkipGroup) => {
+    return new Promise(async (resolve,reject) => {
+        try {
+            let groupConversations = await chatGroupModel.readMoreChatGroups(currentUserId,SkipGroup,LIMIT_CONVERSATIONS);
+            groupConversations = _.sortBy(groupConversations , (item) => {
+                return -item.updatedAt;
+            })
+            // get message to apply in screen chat
+            let groupConversationWidthMessagePromise = groupConversations.map( async (conversation) => {
+                conversation = conversation.toObject();
+                let getMessage = await  messageModel.model.getMessageInGroup(conversation._id,LIMIT_MESSAGES);
+                    conversation.messages = _.reverse(getMessage);
+                return conversation;
+            })
+            let groupConversationWithMessage = await Promise.all(groupConversationWidthMessagePromise);
+            // sort By updatedAt DESC
+            groupConversationWithMessage = _.sortBy(groupConversationWithMessage,(item) => {
+                return -item.updatedAt;
+            })
+            resolve(groupConversationWithMessage);
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
 let readMore = (currentUserId,skipMessage,targetId,chatInGroup) => {
     return new Promise(async (resolve,reject) => {
         try {
@@ -369,5 +394,6 @@ module.exports = {
     addNewAttachment,
     readMoreAllChat,
     readMore,
-    readMoreUserChat
+    readMoreUserChat,
+    readMoreGroupChat
 };

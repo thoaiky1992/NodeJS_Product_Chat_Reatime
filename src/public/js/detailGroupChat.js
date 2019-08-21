@@ -204,14 +204,16 @@ $(document).ready(function(){
       subGroupChatName = subGroupChatName.substr(0,11)
     }
     let message = "";
-    if(data.message[0].messageType == 'text'){
-      message = emojione.toImage(data.message[0].text);
-    }
-    else if(data.message[0].messageType == 'image'){
-      message = "Hình ảnh ...";
-    }
-    else{
-      message = "Tệp đính kèm ...";
+    if(data.message.length){
+      if(data.message[0].messageType == 'text'){
+        message = emojione.toImage(data.message[0].text);
+      }
+      else if(data.message[0].messageType == 'image'){
+        message = "Hình ảnh ...";
+      }
+      else{
+        message = "Tệp đính kèm ...";
+      }
     }
     let leftSideData = `<a href="#uid_${data.groupChat._id}" class="room-chat" data-target="#to_${data.groupChat._id}">
         <li class="person" style="height:70px;" data-chat="${data.groupChat._id}">

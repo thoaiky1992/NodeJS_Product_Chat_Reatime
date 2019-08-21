@@ -1,0 +1,35 @@
+<% newGroupConversations.forEach(function(conversation){ %>
+    <a href="#uid_<%= conversation._id%>" class="room-chat" data-target="#to_<%= conversation._id%>">
+        <li class="person group-chat" data-chat="<%= conversation._id%>">
+            <div class="left-avatar">
+                <!-- <div class="dot"></div> -->
+                <img src="images/users/group-default.png" alt="">
+            </div>
+            <span class="name">
+                <span class="group-chat-name">
+                    <% if(conversation.name.length > 15){ %> 
+                        <%= conversation.name.substr(0,11) %><span>...</span>
+                    <% }else if(conversation.name.length < 10){  %>
+                        <%= conversation.name %> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <% }else{  %>
+                        <%= conversation.name %>
+                    <% } %>
+                </span>
+            </span>
+            <span class="time">
+                <%= convertTimestampToHumanTime(lastItemofArray(conversation.messages).createdAt) %>
+            </span>
+            <span class="preview convert-emoji">
+                <% if(lastItemofArray(conversation.messages).messageType === "text"){%>
+                    <%= lastItemofArray(conversation.messages).text %>
+                <% } %>
+                <% if(lastItemofArray(conversation.messages).messageType === "image"){%>
+                    Hình ảnh ...
+                <% } %>
+                <% if(lastItemofArray(conversation.messages).messageType === "file"){%>
+                    Tệp đính kèm ...
+                <% } %>
+            </span>
+        </li>
+    </a>
+<% })%>

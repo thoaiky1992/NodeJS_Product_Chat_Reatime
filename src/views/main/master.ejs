@@ -80,6 +80,7 @@
     <script src="js/talkUser.js"></script>
     <script src="js/readMoreAllChat.js"></script>
     <script src="js/readMoreUserChat.js"></script>
+    <script src="js/readMoreGroupChat.js"></script>
     <script src="js/readMoreMessages.js"></script>
     <script src="js/searchConversations.js"></script>
     <script src="js/detailGroupChat.js"></script>
@@ -113,6 +114,17 @@
     
     <script>
         $(function(){
+            if(!$('#all-chat').find('li').length){
+                Swal.fire({
+                title: `Bạn chưa có bạn bè ? Hãy tìm kiếm bạn bè để trò chuyện nhé ! `,     
+                type: 'info',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Xác Nhận'
+                }).then((result) => {
+                    $('#show-modal-contacts').trigger('click')
+                })
+            }
             $(document).on('click','.click_change_password',function(){
                 $('#change-password').show();
             })
