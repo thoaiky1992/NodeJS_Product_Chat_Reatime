@@ -1,0 +1,31 @@
+<% newUserConversations.forEach(function(conversation){ %>
+    <a href="#uid_<%= conversation._id%>" class="room-chat" data-target="#to_<%= conversation._id%>">
+        <li class="person" data-chat="<%= conversation._id%>">
+            <div class="left-avatar">
+                <div class="dot"></div>
+                <img src="images/users/<%= conversation.avatar%>" alt="">
+            </div>
+            <span class="name">
+                <% if(conversation.username.length > 15){ %> 
+                    <%= conversation.username.substr(0,11) %><span>...</span>
+                <% }else if(conversation.username.length < 10){  %>
+                    <%= conversation.username %> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <% }else{  %>
+                    <%= conversation.username %>
+                <% } %> 
+            </span>
+            <span class="time"><%= convertTimestampToHumanTime(lastItemofArray(conversation.messages).createdAt) %></span>
+            <span class="preview convert-emoji">
+                <% if(lastItemofArray(conversation.messages).messageType === "text"){%>
+                    <%= lastItemofArray(conversation.messages).text %>
+                <% } %>
+                <% if(lastItemofArray(conversation.messages).messageType === "image"){%>
+                    Hình ảnh ...
+                <% } %>
+                <% if(lastItemofArray(conversation.messages).messageType === "file"){%>
+                    Tệp đính kèm ...
+                <% } %>
+            </span>
+        </li>
+    </a>
+<% })%>

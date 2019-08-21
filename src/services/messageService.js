@@ -6,7 +6,7 @@ import { transErrors } from '../../lang/vi';
 import { app } from '../config/app';
 import _ from 'lodash';
 import fsExtra from 'fs-extra';
-const LIMIT_CONVERSATIONS = 5;
+const LIMIT_CONVERSATIONS = 1;
 const LIMIT_MESSAGES = 10; 
 /**
  * get all conversations 
@@ -308,6 +308,44 @@ let readMoreAllChat = (currentUserId,skipPersonal,SkipGroup) => {
         }
     })
 }
+let readMoreUserChat = (currentUserId,skipPersonal) => {
+    return new Promise(async (resolve,reject) => {
+        try {
+            let contacts = await contactModel.readMoreContacts(currentUserId,skipPersonal,LIMIT_CONVERSATIONS);
+            let userConversationstPromise = contacts.map( async (contact) => {
+                if(contact.contactID == currentUserId){
+                    let getUserContact =  await userModel.getNormalUserDataById(contact.userID);
+                    getUserContact.updatedAt = contact.updatedAt;
+                    return getUserContact;
+                }
+                else{
+                    let getUserContact = await userModel.getNormalUserDataById(contact.contactID);
+                    getUserContact.updatedAt = contact.updatedAt;
+                    return getUserContact;
+                }
+            });
+            let userConversations =  await Promise.all(userConversationstPromise);
+            userConversations = _.sortBy(userConversations , (item) => {
+                return -item.updatedAt;
+            })
+            // get message to apply in screen chat
+            let userConversationWidthMessagePromise = userConversations.map( async (conversation) => {
+                conversation = conversation.toObject();
+                let getMessage = await  messageModel.model.getMessageInPersonal(currentUserId,conversation._id,LIMIT_MESSAGES);
+                conversation.messages = _.reverse(getMessage);
+                return conversation;
+            })
+            let userConversationWithMessage = await Promise.all(userConversationWidthMessagePromise);
+            // sort By updatedAt DESC
+            userConversationWithMessage = _.sortBy(userConversationWithMessage,(item) => {
+                return -item.updatedAt;
+            })
+            resolve(userConversationWithMessage);
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
 let readMore = (currentUserId,skipMessage,targetId,chatInGroup) => {
     return new Promise(async (resolve,reject) => {
         try {
@@ -330,5 +368,6 @@ module.exports = {
     addNewImage,
     addNewAttachment,
     readMoreAllChat,
-    readMore
+    readMore,
+    readMoreUserChat
 };

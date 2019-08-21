@@ -125,10 +125,10 @@ let readMoreAllChat = async(req,res) => {
             bufferToBase64 : bufferToBase64,
             user : req.user
         }
-        let leftSideData = await renderFile("src/views/main/readMoreConversations/_leftSide.ejs",dataToRender);
-        let rightSideData = await renderFile("src/views/main/readMoreConversations/_rightSide.ejs",dataToRender);
-        let imageModalData = await renderFile("src/views/main/readMoreConversations/_imageModal.ejs",dataToRender);
-        let attachmentModalData = await renderFile("src/views/main/readMoreConversations/_attachmentModal.ejs",dataToRender);
+        let leftSideData = await renderFile("src/views/main/readMoreAllConversations/_leftSide.ejs",dataToRender);
+        let rightSideData = await renderFile("src/views/main/readMoreAllConversations/_rightSide.ejs",dataToRender);
+        let imageModalData = await renderFile("src/views/main/readMoreAllConversations/_imageModal.ejs",dataToRender);
+        let attachmentModalData = await renderFile("src/views/main/readMoreAllConversations/_attachmentModal.ejs",dataToRender);
         return res.status(200).send({
             leftSideData:leftSideData,
             rightSideData:rightSideData,
@@ -139,7 +139,33 @@ let readMoreAllChat = async(req,res) => {
         res.status(500).send(error);
     }
 }
-
+let readMoreUserChat = async(req,res) => {
+    try {
+        // get skipNumber from query param
+        let skipPersonal = +(req.query.skipPersonal);
+        // get more item
+        let newUserConversations = await message.readMoreUserChat(req.user._id,skipPersonal);
+        let dataToRender = {
+            newUserConversations : newUserConversations,
+            convertTimestampToHumanTime : convertTimestampToHumanTime,
+            lastItemofArray : lastItemofArray,
+            bufferToBase64 : bufferToBase64,
+            user : req.user
+        }
+        let leftSideData = await renderFile("src/views/main/readMoreUserConversations/_leftSide.ejs",dataToRender);
+        let rightSideData = await renderFile("src/views/main/readMoreUserConversations/_rightSide.ejs",dataToRender);
+        let imageModalData = await renderFile("src/views/main/readMoreUserConversations/_imageModal.ejs",dataToRender);
+        let attachmentModalData = await renderFile("src/views/main/readMoreUserConversations/_attachmentModal.ejs",dataToRender);
+        return res.status(200).send({
+            leftSideData:leftSideData,
+            rightSideData:rightSideData,
+            imageModalData:imageModalData,
+            attachmentModalData:attachmentModalData
+        });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+}
 let readMore = async(req,res) => {
     try {
         // get skipNumber from query param
@@ -170,5 +196,6 @@ module.exports = {
     addNewImage,
     addNewAttachment,
     readMoreAllChat,
-    readMore
+    readMore,
+    readMoreUserChat
 }

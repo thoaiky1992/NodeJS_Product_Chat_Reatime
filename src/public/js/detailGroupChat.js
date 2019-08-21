@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  $(document).on('click','.number-members',function(){
+  $(document).on('click','.memberInGroup',function(){
     let targetId = $(this).parent().parent().parent().data('chat');
     let groupName = $(this).parent().parent().parent().find('.name').text();
     $('.contactListUserInGroup').html('');
