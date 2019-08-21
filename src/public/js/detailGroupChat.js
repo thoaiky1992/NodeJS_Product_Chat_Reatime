@@ -203,19 +203,29 @@ $(document).ready(function(){
     if(subGroupChatName.length > 15){
       subGroupChatName = subGroupChatName.substr(0,11)
     }
+    let message = "";
+    if(data.message[0].messageType == 'text'){
+      message = emojione.toImage(data.message[0].text);
+    }
+    else if(data.message[0].messageType == 'image'){
+      message = "Hình ảnh ...";
+    }
+    else{
+      message = "Tệp đính kèm ...";
+    }
     let leftSideData = `<a href="#uid_${data.groupChat._id}" class="room-chat" data-target="#to_${data.groupChat._id}">
         <li class="person" style="height:70px;" data-chat="${data.groupChat._id}">
             <div class="left-avatar">
                 <img src="images/users/group-default.png" class="avatar-online" alt="">
             </div>
             <span class="name" style="font-weight:bold;">
-                ${subGroupChatName.length < 10 ?  `${subGroupChatName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...` : `${subGroupChatName}...`}
+                ${subGroupChatName.length < 10 ?  `${subGroupChatName}...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` : `${subGroupChatName}...`}
             </span>
             <span class="time">
               ${moment(data.message.createdAt).locale("vi").startOf("seconds").fromNow()}
             </span>
             <span class="preview convert-emoji">
-              ${emojione.toImage(data.message[0].text)}
+              ${message}
             </span>
         </li>
     </a>`;
@@ -290,7 +300,11 @@ $(document).ready(function(){
   socket.on('response-leave-group',function(data){
     let memberInGroup = parseInt($(`.right[data-chat = ${data}]`).find("span.show-number-members").html().trim());
     memberInGroup -= 1;
-    console.log(memberInGroup)
     $(`.right[data-chat = ${data}]`).find("span.show-number-members").html(memberInGroup);
+  })
+  $(document).keyup(function(e){
+    if(e.which == 27){
+      $('.close').trigger('click');
+    }
   })
 })
