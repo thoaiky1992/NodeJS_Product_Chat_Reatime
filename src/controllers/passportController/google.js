@@ -7,7 +7,7 @@ let GoogleStrategy = passportGoogle.OAuth2Strategy;
 
 let GGAppID = '29711674374-gatujvs3b6882odcnoh47s8deibq1mdh.apps.googleusercontent.com';
 let GGSecret = '5BoSA5n1xBs6Q-6xA-gp98FS';
-let GGCallbackURL = 'https://localhost:3000/auth/google/callback';
+let GGCallbackURL = 'https://chat-mini-online.herokuapp.com/auth/google/callback';
 let initPassportGoogle = () => {
 	passport.use(new GoogleStrategy({
         clientID            : GGAppID,

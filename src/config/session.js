@@ -12,7 +12,8 @@ let mongoStore = connectMongo(session);
  * lưu session vào mongodb
  */
 let sessionStore = new mongoStore({
-    url :  `${DB_CONNECTION}://${DB_HOST}:${DB_PORT}/${DB_NAME}`,
+    // url :  `${DB_CONNECTION}://${DB_HOST}:${DB_PORT}/${DB_NAME}`,
+    url : `mongodb+srv://legendstrange:776041164@cluster0-x39q3.mongodb.net/awesome_chat`,
     autoReconnect : true,
     // autoRemove : 'native'
 })

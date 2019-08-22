@@ -10,7 +10,8 @@ let connectDB = () => {
     let DB_USERNAME     = '';
     let DB_PASSWORD     = '';
     //mongodb://localhost:27017/awesome_chat
-    let URI = `${DB_CONNECTION}://${DB_HOST}:${DB_PORT}/${DB_NAME}`;
+    // let URI = `${DB_CONNECTION}://${DB_HOST}:${DB_PORT}/${DB_NAME}`;
+    let URI = `mongodb+srv://legendstrange:776041164@cluster0-x39q3.mongodb.net/awesome_chat`;
     return mongoose.connect(URI,{ useNewUrlParser: true ,useFindAndModify: false});
 };
 module.exports = connectDB;

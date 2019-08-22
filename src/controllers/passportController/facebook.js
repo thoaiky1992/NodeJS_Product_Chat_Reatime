@@ -7,7 +7,7 @@ let facebookStrategy = passportFacebook.Strategy;
 
 let FbAppID = '1325164364305202';
 let FBSecret = 'e2971b387746ea4fe9d5fd38bd02261e';
-let FbCallbackURL = 'https://localhost:3000/auth/facebook/callback';
+let FbCallbackURL = 'https://chat-mini-online.herokuapp.com/auth/facebook/callback';
 let initPassportFacebook = () => {
 	passport.use(new facebookStrategy({
         clientID            : FbAppID,

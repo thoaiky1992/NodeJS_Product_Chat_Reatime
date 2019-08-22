@@ -50,10 +50,10 @@ configSocketIo(io,cookieParser,session.sessionStore);
 // init all socket
 initSockets(io);
 
-server.listen(port,hostname,()=>{
-    console.log(`starting ${hostname}:${port}`);
-})
-
+// server.listen(port,hostname,()=>{
+//     console.log(`starting ${hostname}:${port}`);
+// })
+server.listen(process.env.PORT);
 // cấu hình https ảo
 // pem.config({
 //     pathOpenSSL: 'C:\\Program Files\\OpenSSL-Win64\\bin\\openssl' // thay đường dẫn đó vào và thêm  \\ openssl
